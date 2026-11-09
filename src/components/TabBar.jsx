@@ -7,8 +7,8 @@ export default function TabBar() {
     <nav className="tabbar" aria-label="Sections">
       <NavLink to="/weddings"><IconFrame />Weddings</NavLink>
       <NavLink to="/films"><IconFilm />Films</NavLink>
+      <NavLink to="/services"><IconList />Services</NavLink>
       <NavLink to="/about"><IconStudio />Studio</NavLink>
-      <NavLink to="/packages"><IconList />Packages</NavLink>
       <NavLink to="/inquire" className="tab-date"><IconDate />Your date</NavLink>
     </nav>
   )

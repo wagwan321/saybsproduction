@@ -29,7 +29,7 @@ Wedding photography and cinematic films from one team, in Lebanon and worldwide.
 
 ## Capabilities and Constraints
 
-- Pages: Home, Weddings (a story per couple), Films, About, Packages, Inquire.
+- Pages: Home (films, services, recent weddings, screening room, booking steps), Services (each service plus draft collections), Weddings (portfolio, a story per couple), Films (incl. Vimeo archive), Studio, Inquire.
 - Inquiry by WhatsApp (+961 3 986904) and email (info@saybsproduction.com).
 - Packages and prices: NOT supplied. The Packages page must not invent prices; it shows what is included and asks the couple to inquire, with prices marked as to be confirmed by the owner.
 - Photos and films for now come from their Instagram and old website at web resolution; full-resolution originals and film files must be supplied by the studio before launch.
@@ -38,12 +38,15 @@ Wedding photography and cinematic films from one team, in Lebanon and worldwide.
 
 - Name: SAYBS, written in capitals; "SAYBS Production" / "saybsproduction" as the handle. Tagline line under the logo: "PHOTOGRAPHY & FILM".
 - Logo (Instagram, 2026): "SAYBS" in a thin high-contrast Didone serif with wide letter spacing, "PHOTOGRAPHY & FILM" in small geometric sans capitals between two hairlines. The site uses the closest free match (user approved) until the studio supplies the logo file.
-- Black and white throughout, matching the logo. Clean and aesthetic, may nod to old film and darkroom craft, must never look old or vintage-costume.
+- The plate is black and white (black type, white page, logo in black), matching the logo. Photographs and films are always shown in full colour (user correction, 10 Nov 2026). Clean and aesthetic, may nod to old film and darkroom craft, must never look old or vintage-costume.
+- The site must present what SAYBS do (services), not only showcase weddings. Services come from their 2022 site and Instagram: wedding photography, wedding films (teasers, trailers, reels), engagements, studio and portraits, music videos and projects, plus baptisms, family celebrations and event decoration.
+- Rich, elegant motion is wanted (user, 10 Nov 2026): films open the homepage, photographs may move, wipe and settle; text rises. Reduced-motion users get a still site.
 - The older "SAYBS PRODUCTION" rounded-letter logo on their 2022 site is retired; do not use it.
-- House style from the user's other sites: no em dashes in copy, each photo used once across the site, no scroll effects that scale, shift or crop pictures, no stills grabbed from videos, no sideways-swipe carousels on phones.
+- House style from the user's other sites: no em dashes in copy, each photo used once across the site, no stills grabbed from videos used as photos, no sideways-swipe carousels on phones (self-moving photo strips are fine). Unlike the Leisure site, photographs here may move.
 
 ## Evidence on Hand
 
+- Owners: Ribal & Samer Bsaibes (studio's Vimeo bio). Vimeo: vimeo.com/saybs, 42 earlier teasers and trailers (2017), embeddable.
 - Contact: info@saybsproduction.com, +961 3 986904, Champville street, Awkar, Mont-Liban.
 - Bio: "Wedding Photography & Cinematic Films. Timeless imagery. Films that feel like you. Lebanon | Worldwide. BOOKINGS OPEN | 2027".
 - Three client testimonials on their old site (Maya Bou Mansour, Nathalie Malian Salame, Nathalie Abou Khalil Fahd).

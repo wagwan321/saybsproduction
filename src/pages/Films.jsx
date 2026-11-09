@@ -7,6 +7,7 @@ import { useLights } from '../components/Lights.jsx'
 import { IconPlay, IconArrow } from '../components/Icons.jsx'
 import { FILMS, ON_SET } from '../data.js'
 import { usePageTitle } from './usePageTitle.js'
+import VimeoArchive from '../components/VimeoArchive.jsx'
 
 export default function Films() {
   usePageTitle('Films')
@@ -49,6 +50,8 @@ export default function Films() {
         <section className="screens" aria-label="More films">
           {rest.map((f) => <FilmScreen key={f.id} film={f} playlist={FILMS} />)}
         </section>
+
+        <VimeoArchive />
 
         <section className="onset" aria-labelledby="onset">
           <div className="onset-head">

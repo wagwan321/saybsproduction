@@ -282,3 +282,12 @@ Each wedding closes with its vendors: 11px tracked-capital terms over 21px Bodon
 - **Don't** put text or controls on top of a print; the label hangs beneath it.
 - **Don't** use sideways-swipe carousels on phones; reflow hangs into a two-column wall and use the bottom tab bar.
 - **Don't** give buttons, fields or the header a shadow; only prints are lit.
+
+## Revision, 10 November 2026: colour, services, motion
+
+The user corrected three things after the first round; these override anything above that conflicts.
+
+- **Colour photographs on a black and white plate.** The interface stays two-value (black ink, white wall, black screening room), but every photograph and film is shown in full colour. Remove any grayscale filter from photos or video.
+- **Services lead.** The homepage now runs: full-screen opening films, a scroll-lit statement, "What we do" (pinned services with a wiping framed picture), moving photo strips, recent weddings, the screening room, booking steps, client quotes, the studio, bookings. A Services page replaces Packages (`/packages` redirects).
+- **Rich motion grammar.** Opening: three films open from a centre line (clip-path), SAYBS letters rise, hairlines draw. Scroll: statement words light up; services pin and wipe between pictures; booking line draws down; hero films ease back as you leave. Reveals: photographs develop (wipe up inside the mat and settle from a slight zoom); headings rise word by word; text blocks rise 28px. Ambient: photo strips drift in opposite directions (pause on hover), quotes change every 7s. All motion lives in `src/motion.css` and `src/motion.js`, and `prefers-reduced-motion` turns it off.
+- **New type steps** (all Bodoni Moda unless noted): Hero word clamp(64px, 12vw, 190px) at 0.22em tracking; Statement clamp(30px, 4.2vw, 68px); Quote clamp(26px, 3.4vw, 54px) italic; Step title clamp(26px, 2.6vw, 40px); service list title clamp(20px, 1.7vw, 27px). Small Jost labels at 10 to 12px, tracked 0.18 to 0.36em.

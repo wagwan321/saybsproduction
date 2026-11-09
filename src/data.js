@@ -2,6 +2,8 @@
 // @saybsproduction, or the studio's 2022 website. Nothing is invented: where a fact
 // is unknown (prices, surnames, venues) it is left out.
 
+export const OWNERS = 'Ribal & Samer Bsaibes'
+
 export const CONTACT = {
   phoneDisplay: '+961 3 986 904',
   whatsapp: '9613986904',
@@ -33,10 +35,8 @@ export const EXHIBITIONS = [
       p('elissa-roy-07', 'Roy fixing his cufflinks before the ceremony'),
       p('elissa-roy-02', 'Roy alone in a dark doorway'),
       p('elissa-roy-03', 'Wedding favours stamped with an R and E monogram'),
-      p('elissa-roy-06', 'Elissa smiling beside the flower arch'),
       p('elissa-roy-05', 'Favour boxes and the wedding calendar'),
       p('elissa-roy-08', 'A bouquet of white hydrangeas in Elissa’s hands'),
-      p('elissa-roy-12', 'Elissa waiting in the car with her bouquet'),
       p('elissa-roy-11', 'Roy and Elissa face to face beneath her veil'),
       p('elissa-roy-00', 'Elissa and Roy on the terrace before the ceremony'),
       p('elissa-roy-16', 'A kiss on the terrace at dusk'),
@@ -70,22 +70,16 @@ export const EXHIBITIONS = [
       p('valeria-jacob-b-07', 'Jacob slipping the ring onto Valeria’s finger'),
       p('valeria-jacob-b-05', 'Two hands and two rings'),
       p('valeria-jacob-b-02', 'Valeria and Jacob by the rose wall'),
-      p('valeria-jacob-b-04', 'Valeria against a white wall'),
-      p('valeria-jacob-b-06', 'Jacob offering Valeria a rose'),
       p('valeria-jacob-b-08', 'The couple framed inside a giant heart'),
       p('valeria-jacob-b-10', 'The dessert table with roses and frames'),
       p('valeria-jacob-a-08', 'A place card that reads We got engaged'),
       p('valeria-jacob-a-01', 'Long tables set beneath the chandeliers'),
       p('valeria-jacob-a-06', 'Jacob with a glass in hand'),
-      p('valeria-jacob-a-12', 'Valeria in the window light'),
-      p('valeria-jacob-a-07', 'Valeria at the bar'),
-      p('valeria-jacob-a-09', 'Valeria and Jacob under the chandeliers'),
       p('valeria-jacob-a-10', 'Jacob seated beside an antique lamp'),
       p('valeria-jacob-a-03', 'The couple reflected in the dining room'),
       p('valeria-jacob-a-11', 'Valeria and Jacob at their table'),
       p('valeria-jacob-a-04', 'The room set for dinner'),
       p('valeria-jacob-b-11', 'The dining room before the guests arrive'),
-      p('valeria-jacob-a-14', 'The three-tier engagement cake'),
       p('valeria-jacob-a-15', 'Valeria and Jacob with their cake'),
       p('valeria-jacob-a-13', 'Friends lifting the couple into the air'),
     ],
@@ -105,9 +99,7 @@ export const EXHIBITIONS = [
       p('brides-01', 'A bride with her bouquet before a flower arch'),
       p('brides-02', 'A bride in an off-shoulder gown'),
       p('archive-jp1-0340', 'A couple framed by tall open doors above the sea'),
-      p('brides-05', 'A bride walking to the flower arch'),
       p('brides-06', 'A bride and her bridesmaid'),
-      p('archive-pm-3192', 'A bride by the window holding her bouquet'),
     ],
     credits: null,
   },
@@ -121,7 +113,79 @@ export const FILMS = [
   { id: 'cherine', title: 'Cherine', line: 'One year as your wife.', lineBy: 'Cherine', kind: 'Anniversary film' },
 ]
 
-export const HOME_FILM = { id: 'moments', title: 'Moments', line: 'Some moments are simply too beautiful to fade with time.' }
+export const HERO_FILMS = ['elie-rula', 'moments', 'rana']
+
+// What SAYBS do, from their 2022 website (Photography, Cinematography, Studio photography,
+// Filming/Editing, Weddings, Engagements, Baptism, Decoration, Projects), their Vimeo
+// (teasers and trailers) and their Instagram (reels, Manel Mallat's music video set).
+export const SERVICES = [
+  {
+    id: 'photography',
+    title: 'Wedding photography',
+    line: 'The whole day, from getting ready to the last dance.',
+    text: 'Portraits, family, details and decoration, and every moment in between, told honestly and never over edited.',
+    items: ['Getting ready and the ceremony', 'Couple and family portraits', 'Details and decoration', 'The party, until the last dance'],
+    media: { kind: 'photo', id: 'elissa-roy-10', alt: 'Roy and Elissa laughing together among the trees' },
+  },
+  {
+    id: 'films',
+    title: 'Wedding films',
+    line: 'Films that feel like you.',
+    text: 'Cinematic films cut from the whole day and shaped into a story you will want to watch again and again.',
+    items: ['The teaser', 'The trailer', 'Reels made for sharing'],
+    media: { kind: 'film', id: 'veronique', alt: 'Veronique and her husband, a SAYBS wedding film' },
+  },
+  {
+    id: 'engagements',
+    title: 'Engagements',
+    line: 'The yes, and the party that follows.',
+    text: 'Proposals, engagement parties and sessions before the wedding, in a place that means something to you.',
+    items: ['Proposals', 'Engagement parties', 'Engagement sessions'],
+    media: { kind: 'photo', id: 'valeria-jacob-a-05', alt: 'Valeria posing on a leather sofa at her engagement' },
+  },
+  {
+    id: 'studio',
+    title: 'Studio & portraits',
+    line: 'Light, patience and a quiet room.',
+    text: 'Studio photography, bridal portraits and maternity sessions, lit and directed by the same team that shoots your wedding.',
+    items: ['Studio photography', 'Bridal portraits', 'Maternity sessions'],
+    media: { kind: 'photo', id: 'archive-pm-3192', alt: 'A bride by the window holding her bouquet' },
+  },
+  {
+    id: 'projects',
+    title: 'Music videos & projects',
+    line: 'When the story is yours to tell.',
+    text: 'Music videos and creative projects, from the set to the final cut, like Manel Mallat’s Ya Hobbi Li Jayi.',
+    items: ['Music videos', 'Behind the scenes', 'Creative projects'],
+    media: { kind: 'film', id: 'manel-clip-02', alt: 'On set with Manel Mallat' },
+  },
+]
+export const ALSO = 'We also cover baptisms, family celebrations and event decoration.'
+
+export const MARQUEE = [
+  [p('elissa-roy-06', 'Elissa smiling beside the flower arch'), p('valeria-jacob-a-07', 'Valeria at the bar'), p('brides-05', 'A bride walking to the flower arch'), p('valeria-jacob-a-14', 'The three-tier engagement cake'), p('elissa-roy-12', 'Elissa waiting in the car with her bouquet')],
+  [p('valeria-jacob-b-06', 'Jacob offering Valeria a rose'), p('valeria-jacob-a-12', 'Valeria in the window light'), p('manel-14', 'A crew member holding a ring light on set'), p('valeria-jacob-a-09', 'Valeria and Jacob under the chandeliers'), p('valeria-jacob-b-04', 'Valeria against a white wall')],
+]
+
+export const PROCESS = [
+  { title: 'Check your date', text: 'Send us your date and venue on WhatsApp or by email. Bookings are open for 2027.' },
+  { title: 'Plan it together', text: 'We talk through your day, the moments that matter to you, and whether you want photographs, a film or both.' },
+  { title: 'The day', text: 'Our photographer and cinematographer work side by side, from getting ready to the last dance.' },
+  { title: 'Your story', text: 'You receive your edited photographs and your film, ready to keep and to share.' },
+]
+
+// Earlier films on the studio's Vimeo (vimeo.com/saybs, 42 films). Embedded, not copied.
+export const VIMEO = [
+  { id: '236670701', thumb: 'https://i.vimeocdn.com/video/658846600-d40a7488780eb402d25cb08124189e0cf6dcd0054a0695b9ac1e5978bda1beb1-d_640', title: 'Elias & Marcelle', kind: 'The trailer', length: '2:27' },
+  { id: '238667375', thumb: 'https://i.vimeocdn.com/video/661428296-62ad8bb4c84778161426b43e238dbf4224427926acc7d848822f9dafcac795bb-d_640', title: 'Diala & John', kind: 'The teaser', length: '1:51' },
+  { id: '237739745', thumb: 'https://i.vimeocdn.com/video/660236207-86c1dd49788e394faf4c4fdfd47507614d82206f451d42ecee700c2746915285-d_640', title: 'Alain & Joy', kind: 'The teaser', length: '1:35' },
+  { id: '237725254', thumb: 'https://i.vimeocdn.com/video/660217269-0d76deecbcf8e657d486c035bf699a8cc3d4c98c538091fa244d79079ab510b4-d_640', title: 'Alain & Nicole', kind: 'The teaser', length: '1:40' },
+  { id: '236667956', thumb: 'https://i.vimeocdn.com/video/659772520-56d2f029ea2ffb79c3290e438f7b9ceff644b8ad73105b671c02b89a234d834d-d_640', title: 'Daoud & Chirine', kind: 'The teaser', length: '1:41' },
+  { id: '234933215', thumb: 'https://i.vimeocdn.com/video/656699149-00d2e344bc3662ee65487806ca7c411095c1d15ae3f2cb063c296fb360d206e8-d_640', title: 'Jessy & Georges', kind: 'The teaser', length: '1:30' },
+]
+export const VIMEO_URL = 'https://vimeo.com/saybs'
+
+export const HOME_FILM = { id: 'nizar-monica', title: 'Nizar & Monica', line: 'Their love story speaks for itself.' }
 
 export const ON_SET = {
   title: 'On set with Manel Mallat',

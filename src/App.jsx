@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
 import TabBar from './components/TabBar.jsx'
@@ -9,7 +9,7 @@ import Weddings from './pages/Weddings.jsx'
 import Wedding from './pages/Wedding.jsx'
 import Films from './pages/Films.jsx'
 import About from './pages/About.jsx'
-import Packages from './pages/Packages.jsx'
+import ServicesPage from './pages/ServicesPage.jsx'
 import Inquire from './pages/Inquire.jsx'
 import NotFound from './pages/NotFound.jsx'
 
@@ -32,14 +32,15 @@ export default function App() {
       <ScrollToTop />
       <a className="skip" href="#main">Skip to content</a>
       <Header />
-      <main id="main">
+      <main id="main" key={pathname} className="page">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/weddings" element={<Weddings />} />
           <Route path="/weddings/:slug" element={<Wedding />} />
           <Route path="/films" element={<Films />} />
           <Route path="/about" element={<About />} />
-          <Route path="/packages" element={<Packages />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/packages" element={<Navigate to="/services" replace />} />
           <Route path="/inquire" element={<Inquire />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

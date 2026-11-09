@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import Print from '../components/Print.jsx'
 import Rv from '../components/Reveal.jsx'
 import { IconArrow } from '../components/Icons.jsx'
-import { STUDIO, TESTIMONIALS, CONTACT, waLink } from '../data.js'
+import { STUDIO, TESTIMONIALS, CONTACT, OWNERS, waLink } from '../data.js'
 import { usePageTitle } from './usePageTitle.js'
 
 export default function About() {
@@ -21,7 +21,7 @@ export default function About() {
         <Rv className="about-text">
           <h2 className="h-section">Two crafts, one day</h2>
           <div>
-            <p className="body">At SAYBS we work in both photography and cinematography. Photography is an art that asks the photographer to tell a whole story in a single shot: a good photograph is a complete work in itself.</p>
+            <p className="body">SAYBS is a wedding and event studio in Awkar, Metn, run by {OWNERS}. We work in both photography and cinematography. Photography is an art that asks the photographer to tell a whole story in a single shot: a good photograph is a complete work in itself.</p>
             <p className="body">Cinematography asks something different: understanding how one shot speaks to the next, and piecing motion, light and sound together into one narrative. We bring both to your wedding, so your photographs and your film tell the same story.</p>
           </div>
         </Rv>

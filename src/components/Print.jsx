@@ -1,16 +1,19 @@
 import { SIZES } from '../media.js'
 import { photoSrc, useLights } from './Lights.jsx'
+import { useInView } from '../motion.js'
 
-// A matted, framed print hung on the wall. Clicking it brings the lights down.
+// A matted, framed print hung on the wall. It develops into view (the photograph wipes up
+// inside its mat and settles), and clicking it brings the lights down.
 // `walk` is the list of prints the viewer can step through from here.
 export default function Print({ photo, walk, index = 0, title, meta, size = '', eager = false, no, children, className = '' }) {
   const { open } = useLights()
+  const ref = useInView({ rootMargin: '0px 0px -8% 0px' })
   const [w, h] = SIZES[photo.id] || [1200, 1600]
   const list = (walk || [photo]).map((p) => ({ kind: 'photo', id: p.id, alt: p.alt, title, meta }))
   const at = walk ? walk.findIndex((p) => p.id === photo.id) : 0
 
   return (
-    <div className={`print-wrap ${className}`}>
+    <div ref={ref} className={`print-wrap develop ${className}`}>
       <figure className={`print ${size}`}>
         <button className="print-hit" onClick={() => open(list, at < 0 ? index : at)} aria-label={`View larger: ${photo.alt}`}>
           <img

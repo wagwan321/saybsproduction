@@ -5,6 +5,7 @@ import '@fontsource-variable/bodoni-moda/opsz.css'
 import '@fontsource-variable/bodoni-moda/opsz-italic.css'
 import '@fontsource-variable/jost'
 import './styles.css'
+import './motion.css'
 import App from './App.jsx'
 
 document.documentElement.classList.add('js')
