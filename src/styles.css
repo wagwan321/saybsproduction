@@ -15,7 +15,7 @@
   --gut: clamp(20px, 4.2vw, 64px);
   --wide: 1520px;
 
-  --serif: 'Bodoni Moda Variable', 'Bodoni Moda', 'Bodoni 72', Didot, serif;
+  --serif: 'Noto Serif Display Variable', 'Noto Serif Display', Didot, Georgia, serif;
   --sans: 'Jost Variable', Jost, 'Futura PT', Futura, sans-serif;
   --line: 1px solid var(--ink);
 

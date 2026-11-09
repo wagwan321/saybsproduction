@@ -9,6 +9,7 @@ import Services from '../components/Services.jsx'
 import Marquee from '../components/Marquee.jsx'
 import Process from '../components/Process.jsx'
 import Quotes from '../components/Quotes.jsx'
+import Museum from '../components/Museum.jsx'
 import InquiryForm from '../components/InquiryForm.jsx'
 import { LoopFilm } from '../components/Film.jsx'
 import { IconArrow } from '../components/Icons.jsx'
@@ -51,28 +52,7 @@ export default function Home() {
 
       <Marquee rows={MARQUEE} />
 
-      <section className="section work" aria-labelledby="recent-work">
-        <div className="wrap">
-          <div className="section-head">
-            <Split id="recent-work" className="h-display" text="Recent weddings" />
-            <Rv as="p" className="body">Every wedding we photograph hangs as its own exhibition: the getting ready, the vows, the details only the two of you will remember.</Rv>
-          </div>
-          {shows.map(({ e, prints }, i) => (
-            <article className={`show${i % 2 ? ' flip' : ''}`} key={e.slug} aria-labelledby={`show-${e.slug}`}>
-              <Print className="a" photo={prints[0]} walk={prints} title={e.title} meta={metaOf(e)} />
-              <Print className="b" size="s" photo={prints[1]} walk={prints} title={e.title} meta={metaOf(e)} />
-              <Rv className="info">
-                <h3 id={`show-${e.slug}`} className="h-section">{e.title}</h3>
-                <span className="label-meta">{metaOf(e)}</span>
-                <Link className="link" to={`/weddings/${e.slug}`}>See the wedding <IconArrow /></Link>
-              </Rv>
-            </article>
-          ))}
-          <div className="work-more">
-            <Link className="button ghost" to="/weddings">All weddings</Link>
-          </div>
-        </div>
-      </section>
+      <Museum shows={shows} />
 
       <section ref={room} className="room screening" aria-labelledby="screening">
         <div className="wrap">

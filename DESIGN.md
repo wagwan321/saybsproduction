@@ -7,41 +7,41 @@ colors:
   room-black: "#000000"
 typography:
   vinyl:
-    fontFamily: "Bodoni Moda Variable, Bodoni Moda, Bodoni 72, Didot, serif"
+    fontFamily: "Noto Serif Display Variable, Noto Serif Display, Didot, Georgia, serif"
     fontSize: "clamp(52px, 8.4vw, 132px)"
     fontWeight: 400
     lineHeight: 0.92
     letterSpacing: "0.2em"
     fontVariation: "'opsz' 96"
   display:
-    fontFamily: "Bodoni Moda Variable, Bodoni Moda, Bodoni 72, Didot, serif"
+    fontFamily: "Noto Serif Display Variable, Noto Serif Display, Didot, Georgia, serif"
     fontSize: "clamp(38px, 5.2vw, 84px)"
     fontWeight: 400
     lineHeight: 1.02
     letterSpacing: "0.01em"
     fontVariation: "'opsz' 72"
   headline:
-    fontFamily: "Bodoni Moda Variable, Bodoni Moda, Bodoni 72, Didot, serif"
+    fontFamily: "Noto Serif Display Variable, Noto Serif Display, Didot, Georgia, serif"
     fontSize: "clamp(32px, 3.6vw, 56px)"
     fontWeight: 400
     lineHeight: 1.06
     letterSpacing: "0.01em"
     fontVariation: "'opsz' 60"
   title:
-    fontFamily: "Bodoni Moda Variable, Bodoni Moda, Bodoni 72, Didot, serif"
+    fontFamily: "Noto Serif Display Variable, Noto Serif Display, Didot, Georgia, serif"
     fontSize: "clamp(24px, 2.1vw, 32px)"
     fontWeight: 400
     lineHeight: 1.15
     letterSpacing: "0.015em"
     fontVariation: "'opsz' 36"
   lede:
-    fontFamily: "Bodoni Moda Variable, Bodoni Moda, Bodoni 72, Didot, serif"
+    fontFamily: "Noto Serif Display Variable, Noto Serif Display, Didot, Georgia, serif"
     fontSize: "clamp(20px, 1.7vw, 27px)"
     fontWeight: 400
     lineHeight: 1.4
     fontVariation: "'opsz' 28"
   label-title:
-    fontFamily: "Bodoni Moda Variable, Bodoni Moda, Bodoni 72, Didot, serif"
+    fontFamily: "Noto Serif Display Variable, Noto Serif Display, Didot, Georgia, serif"
     fontSize: "clamp(21px, 1.6vw, 25px)"
     fontWeight: 400
     lineHeight: 1.2
@@ -142,7 +142,7 @@ components:
 
 **Creative North Star: "The Exhibition"**
 
-Every wedding hangs as its own exhibition and the site is the gallery you walk through. The interface is a white gallery wall and black ink, nothing between: matted prints with one hairline frame and a soft cast shadow, hung off-centre on a shared 12-column wall, each with a small museum wall label beneath. Exhibition titles are wall vinyl in Bodoni Moda with the logo's wide tracking. Films live in a black screening room, and the room's lights are the only thing that moves.
+Every wedding hangs as its own exhibition and the site is the gallery you walk through. The interface is a white gallery wall and black ink, nothing between: matted prints with one hairline frame and a soft cast shadow, hung off-centre on a shared 12-column wall, each with a small museum wall label beneath. Exhibition titles are wall vinyl in Noto Serif Display with the logo's wide tracking. Films live in a black screening room, and the room's lights are the only thing that moves.
 
 Density is gallery-sparse. Prints are given wide air (section padding of 13 mat units, 14 between hung groups) and are never cropped by scroll, never scaled, never shifted. Hierarchy comes from two faces only, through case, size and spacing; colour and weight are not used as hierarchy devices. One proportion, the mat unit, sets every margin and gap.
 
@@ -174,7 +174,7 @@ A strict two-value interface that inverts as a whole when the lights go down.
 
 ## Typography
 
-**Display Font:** Bodoni Moda Variable (with Bodoni 72, Didot, serif), optical size axis tuned per role
+**Display Font:** Noto Serif Display Variable (with Bodoni 72, Didot, serif), optical size axis tuned per role
 **Body Font:** Jost Variable (with Futura PT, Futura, sans-serif)
 
 **Character:** A high-contrast Didone set at exhibition scale against a geometric sans set small and tracked wide, the same pairing as the SAYBS logo lockup. Bodoni is always regular weight; italic Bodoni carries every spoken voice (ledes, quotes, testimonials, prices, placeholders).
@@ -191,7 +191,7 @@ A strict two-value interface that inverts as a whole when the lights go down.
 - **Label** (Jost 450, 12px, 0.3em, uppercase): actions, nav, buttons, citations, the place line. Field labels, credit terms and plate numbers run at 11px, 500, 0.26 to 0.28em.
 
 ### Named Rules
-**The Two Faces Rule.** Only Bodoni Moda and Jost. Hierarchy comes from case, size and spacing; Bodoni is never set bold.
+**The Two Faces Rule.** Only Noto Serif Display and Jost. Hierarchy comes from case, size and spacing; Bodoni is never set bold.
 
 **The Wall Label Rule.** Information about a picture is set as a museum label: Bodoni title, Jost meta line, then at most one tracked-capitals action. It sits below the print, never on it.
 
@@ -290,4 +290,11 @@ The user corrected three things after the first round; these override anything a
 - **Colour photographs on a black and white plate.** The interface stays two-value (black ink, white wall, black screening room), but every photograph and film is shown in full colour. Remove any grayscale filter from photos or video.
 - **Services lead.** The homepage now runs: full-screen opening films, a scroll-lit statement, "What we do" (pinned services with a wiping framed picture), moving photo strips, recent weddings, the screening room, booking steps, client quotes, the studio, bookings. A Services page replaces Packages (`/packages` redirects).
 - **Rich motion grammar.** Opening: three films open from a centre line (clip-path), SAYBS letters rise, hairlines draw. Scroll: statement words light up; services pin and wipe between pictures; booking line draws down; hero films ease back as you leave. Reveals: photographs develop (wipe up inside the mat and settle from a slight zoom); headings rise word by word; text blocks rise 28px. Ambient: photo strips drift in opposite directions (pause on hover), quotes change every 7s. All motion lives in `src/motion.css` and `src/motion.js`, and `prefers-reduced-motion` turns it off.
-- **New type steps** (all Bodoni Moda unless noted): Hero word clamp(64px, 12vw, 190px) at 0.22em tracking; Statement clamp(30px, 4.2vw, 68px); Quote clamp(26px, 3.4vw, 54px) italic; Step title clamp(26px, 2.6vw, 40px); service list title clamp(20px, 1.7vw, 27px). Small Jost labels at 10 to 12px, tracked 0.18 to 0.36em.
+- **New type steps** (all Noto Serif Display unless noted): Hero word clamp(64px, 12vw, 190px) at 0.22em tracking; Statement clamp(30px, 4.2vw, 68px); Quote clamp(26px, 3.4vw, 54px) italic; Step title clamp(26px, 2.6vw, 40px); service list title clamp(20px, 1.7vw, 27px). Small Jost labels at 10 to 12px, tracked 0.18 to 0.36em.
+
+## Revision 3, 10 November 2026: type, services, museum
+
+- **Display face is Noto Serif Display** (user's choice D from a six-option sheet; the logo's real font is not public and looks like a Didot). Weight 300 for the SAYBS lockup, vinyl titles, statement, ledes and quotes; 400 for headings. All small text stays Jost. Arabic lines fall back to Noto Naskh Arabic or the system Arabic face.
+- **Opening films:** Nizar & Monica, Moments, Rana & Pierre (the Elie & Rula reel is only 641 x 358 and blurs at panel size). A stronger centre shade keeps the white SAYBS readable on any frame.
+- **What we do is mouse-driven:** hovering, focusing or clicking a service (arrow keys move between them) wipes the framed picture to that service. No pinned scroll.
+- **The Museum of Weddings** replaces Recent weddings on the homepage: a Higgsfield-generated empty gallery wall (`public/media/museum/hall.jpg`, prompt embedded in the file) with six spotlight pools; each exhibition hangs as two real prints under a pair of lights with a wall label. The lights flicker on when the section arrives, prints develop in sequence, pointing at an exhibition walks the camera closer (scale 1.9) and dims the others; phones tour the three exhibitions automatically. Clicking enters the wedding.

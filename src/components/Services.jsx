@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useScrollVar, useInView, reducedMotion } from '../motion.js'
+import { useInView, reducedMotion } from '../motion.js'
 import { photoSrc, filmSrc, posterSrc } from './Lights.jsx'
 import { SIZES } from '../media.js'
 import { IconArrow } from './Icons.jsx'
+import Split from './Split.jsx'
 import { SERVICES, ALSO } from '../data.js'
 
 function Media({ m, active, eager }) {
@@ -23,59 +24,73 @@ function Media({ m, active, eager }) {
   return <img src={photoSrc(m.id)} alt={m.alt} width={w} height={h} loading={eager ? 'eager' : 'lazy'} decoding="async" />
 }
 
-// "What we do": on wide screens the section pins while the services pass through it, the
-// framed picture wiping to each service's photograph or film. On phones each service stacks.
+// "What we do": the visitor moves through the services with the mouse (or taps / arrow keys).
+// Pointing at a service wipes the framed picture to its photograph or film and shows its details.
 export default function Services() {
   const [at, setAt] = useState(0)
   const n = SERVICES.length
-  const ref = useScrollVar('pin', '--p', (p) => setAt(Math.min(n - 1, Math.floor(p * n * 0.999))))
-  const head = useInView()
+  const box = useInView()
+  const onKey = (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); setAt((a) => (a + 1) % n); focusRow((at + 1) % n) }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); setAt((a) => (a - 1 + n) % n); focusRow((at - 1 + n) % n) }
+  }
+  const list = useRef(null)
+  const focusRow = (i) => list.current?.querySelectorAll('button')[i]?.focus()
+  const s = SERVICES[at]
 
   return (
     <section className="services" aria-labelledby="what-we-do">
-      <div ref={ref} className="svc-pin" style={{ '--n': n }}>
-        <div className="svc-stick">
-          <div className="wrap svc-grid">
-            <div className="svc-left">
-              <h2 id="what-we-do" ref={head} className="h-display split-lite">What we do</h2>
-              <ol className="svc-list">
-                {SERVICES.map((s, i) => (
-                  <li key={s.id} className={i === at ? 'on' : i < at ? 'past' : ''}>
-                    <span className="svc-n">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="svc-t">{s.title}</span>
-                  </li>
-                ))}
-              </ol>
-              <div className="svc-detail" aria-live="polite">
-                {SERVICES.map((s, i) => (
-                  <div key={s.id} className={`svc-copy${i === at ? ' on' : ''}`} aria-hidden={i !== at}>
-                    <p className="lede">{s.line}</p>
-                    <p className="body">{s.text}</p>
-                    <ul className="svc-items">{s.items.map((t) => <li key={t}>{t}</li>)}</ul>
-                  </div>
-                ))}
+      <div ref={box} className="wrap svc-grid svc-hover">
+        <div className="svc-left">
+          <Split id="what-we-do" className="h-display" text="What we do" />
+          <ol ref={list} className="svc-list" role="tablist" aria-orientation="vertical" onKeyDown={onKey}>
+            {SERVICES.map((x, i) => (
+              <li key={x.id} className={i === at ? 'on' : ''}>
+                <button
+                  role="tab"
+                  id={`svc-tab-${x.id}`}
+                  aria-selected={i === at}
+                  aria-controls="svc-panel"
+                  tabIndex={i === at ? 0 : -1}
+                  onMouseEnter={() => setAt(i)}
+                  onFocus={() => setAt(i)}
+                  onClick={() => setAt(i)}
+                >
+                  <span className="svc-n">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="svc-t">{x.title}</span>
+                  <span className="svc-arrow" aria-hidden="true"><IconArrow /></span>
+                </button>
+              </li>
+            ))}
+          </ol>
+          <div className="svc-detail" id="svc-panel" role="tabpanel" aria-labelledby={`svc-tab-${s.id}`}>
+            {SERVICES.map((x, i) => (
+              <div key={x.id} className={`svc-copy${i === at ? ' on' : ''}`} aria-hidden={i !== at}>
+                <p className="lede">{x.line}</p>
+                <p className="body">{x.text}</p>
+                <ul className="svc-items">{x.items.map((t) => <li key={t}>{t}</li>)}</ul>
               </div>
-              <p className="svc-also">{ALSO}</p>
-            </div>
-            <div className="svc-stage">
-              <figure className="print svc-frame">
-                {SERVICES.map((s, i) => (
-                  <div key={s.id} className={`svc-media${i === at ? ' on' : i < at ? ' past' : ''}`}>
-                    <Media m={s.media} active={i === at} eager={i === 0} />
-                  </div>
-                ))}
-              </figure>
-              <div className="svc-meter" aria-hidden="true"><span /></div>
-              <Link className="link" to="/services">All services and collections <IconArrow /></Link>
-            </div>
+            ))}
           </div>
+          <p className="svc-also">{ALSO}</p>
+        </div>
+        <div className="svc-stage">
+          <figure className="print svc-frame">
+            {SERVICES.map((x, i) => (
+              <div key={x.id} className={`svc-media${i === at ? ' on' : ''}`}>
+                <Media m={x.media} active={i === at} eager={i === 0} />
+              </div>
+            ))}
+            <figcaption className="svc-count" aria-hidden="true">{String(at + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</figcaption>
+          </figure>
+          <Link className="link" to="/services">All services and collections <IconArrow /></Link>
         </div>
       </div>
 
       {/* Phones: the same services, one after another */}
       <div className="svc-stack wrap">
         <h2 className="h-display">What we do</h2>
-        {SERVICES.map((s, i) => <StackItem key={s.id} s={s} i={i} />)}
+        {SERVICES.map((x, i) => <StackItem key={x.id} s={x} i={i} />)}
         <p className="svc-also">{ALSO}</p>
         <Link className="link" to="/services">All services and collections <IconArrow /></Link>
       </div>
