@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T23:40:00Z",
+  "title": "Design System: SAYBS",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "primary", "displayName": "Gallery Ink", "canonical": "#0b0b0b", "tonalRamp": ["#0b0b0b", "#262626", "#404040", "#5e5e5e", "#7d7d7d", "#a1a1a1", "#c8c8c8", "#efefef"] },
+      "wall": { "role": "neutral", "displayName": "Gallery Wall", "canonical": "#ffffff", "tonalRamp": ["#262626", "#404040", "#5e5e5e", "#7d7d7d", "#a1a1a1", "#c8c8c8", "#efefef", "#ffffff"] },
+      "room-black": { "role": "neutral", "displayName": "Screening Black", "canonical": "#000000", "tonalRamp": ["#000000", "#1b1b1b", "#333333", "#4f4f4f", "#6e6e6e", "#939393", "#bdbdbd", "#e8e8e8"] }
+    },
+    "typographyMeta": {
+      "vinyl": { "displayName": "Vinyl", "purpose": "Exhibition titles on page entrances and the SAYBS lockup, set like wall vinyl with wide tracking and a cancelling right margin." },
+      "display": { "displayName": "Display", "purpose": "Section titles, feature film titles, the next-exhibition link and the bookings close." },
+      "headline": { "displayName": "Headline", "purpose": "Exhibition names inside a home hang." },
+      "title": { "displayName": "Title", "purpose": "Small headings such as the visit columns." },
+      "lede": { "displayName": "Lede", "purpose": "Italic spoken line under a title; quotes scale up from the same voice." },
+      "label-title": { "displayName": "Label Title", "purpose": "A print's name on its wall label; programme titles and credit values." },
+      "body": { "displayName": "Body", "purpose": "Running text, max 62ch." },
+      "label-meta": { "displayName": "Label Meta", "purpose": "Kind, place and date on a wall label, joined with a middle dot." },
+      "label": { "displayName": "Label", "purpose": "Tracked uppercase Jost for actions, nav, buttons, citations; 11px variant for field labels, credit terms and plate numbers." }
+    },
+    "shadows": [
+      { "name": "hung", "value": "0 26px 44px -28px rgba(11, 11, 11, 0.5), 0 2px 5px rgba(11, 11, 11, 0.07)", "purpose": "Every print at rest on the white wall." },
+      { "name": "lit", "value": "0 34px 60px -30px rgba(11, 11, 11, 0.6), 0 3px 8px rgba(11, 11, 11, 0.09)", "purpose": "A print under the pointer." },
+      { "name": "header-rule", "value": "0 1px 0 #0b0b0b", "purpose": "Hairline under the sticky header once the page scrolls." },
+      { "name": "dark-room", "value": "none", "purpose": "All shadows switch off inside a dark room." }
+    ],
+    "motion": [
+      { "name": "ease-house", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "The single easing for every transition." },
+      { "name": "room-lights", "value": "opacity 1.6s, content opacity 1s after 0.5s", "purpose": "Screening room: black layer fades up, then content fades in." },
+      { "name": "lights-down", "value": "background-color 0.7s; image opacity 0.6s after 0.25s; chrome opacity 0.5s after 0.2 to 0.3s", "purpose": "The viewer dims the page to black, then shows the print." },
+      { "name": "reveal", "value": "opacity 1.1s", "purpose": "Text reveal on entering view. Pictures never move." },
+      { "name": "state", "value": "0.3 to 0.5s", "purpose": "Button inversion, underline and link fill transitions." }
+    ],
+    "breakpoints": [
+      { "name": "hang-narrow", "value": "1180px" },
+      { "name": "single-column", "value": "900px" },
+      { "name": "phone", "value": "760px" },
+      { "name": "small-phone", "value": "420px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink-filled rectangular action in tracked capitals; inverts on hover.",
+      "html": "<button class=\"ds-button\">Check your date</button>",
+      "css": ".ds-button { display: inline-flex; align-items: center; justify-content: center; gap: 0.8em; min-height: 52px; padding: 0 28px; border: 1px solid #0b0b0b; border-radius: 0; background: #0b0b0b; color: #ffffff; font-family: 'Jost Variable', Jost, Futura, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1); } .ds-button:hover { background: #ffffff; color: #0b0b0b; } .ds-button:focus-visible { outline: 1px solid #0b0b0b; outline-offset: 4px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Outlined rectangular action; fills ink on hover.",
+      "html": "<button class=\"ds-button-ghost\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M7 4.5v15l13-7.5z\"/></svg>Play the film</button>",
+      "css": ".ds-button-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 0.8em; min-height: 52px; padding: 0 28px; border: 1px solid #0b0b0b; border-radius: 0; background: transparent; color: #0b0b0b; font-family: 'Jost Variable', Jost, Futura, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1); } .ds-button-ghost:hover { background: #0b0b0b; color: #ffffff; } .ds-button-ghost:focus-visible { outline: 1px solid #0b0b0b; outline-offset: 4px; }"
+    },
+    {
+      "name": "Label Link",
+      "kind": "custom",
+      "refersTo": "label-link",
+      "description": "The wall label's one action: tracked capitals on a hairline that fills ink on hover.",
+      "html": "<a class=\"ds-link\" href=\"#\">See the wedding <svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M4 12h15M14 7l5 5-5 5\"/></svg></a>",
+      "css": ".ds-link { display: inline-flex; align-items: center; gap: 0.7em; color: #0b0b0b; font-family: 'Jost Variable', Jost, Futura, sans-serif; font-size: 12px; font-weight: 450; letter-spacing: 0.3em; text-transform: uppercase; text-decoration: none; padding: 6px 0 5px; border-bottom: 1px solid #0b0b0b; background: linear-gradient(#0b0b0b, #0b0b0b) no-repeat 0 100% / 0 100%; transition: background-size 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1), padding 0.5s cubic-bezier(0.16, 1, 0.3, 1); } .ds-link:hover { background-size: 100% 100%; color: #ffffff; padding-inline: 0.8em; } .ds-link:focus-visible { outline: 1px solid #0b0b0b; outline-offset: 4px; }"
+    },
+    {
+      "name": "Print with Wall Label",
+      "kind": "card",
+      "refersTo": "print",
+      "description": "A matted print with one hairline frame and a soft cast shadow, captioned by a museum wall label beneath.",
+      "html": "<div class=\"ds-print-wrap\"><figure class=\"ds-print\"><button class=\"ds-print-hit\" aria-label=\"View larger\"><div class=\"ds-photo\"></div></button></figure><div class=\"ds-label\"><span class=\"ds-label-title\">Elissa &amp; Roy</span><span class=\"ds-label-meta\">Wedding · Kyra, Lebanon · 2 August 2026</span></div></div>",
+      "css": ".ds-print-wrap { width: 280px; } .ds-print { position: relative; margin: 0; background: #ffffff; padding: 30px; box-shadow: 0 26px 44px -28px rgba(11, 11, 11, 0.5), 0 2px 5px rgba(11, 11, 11, 0.07); transition: box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1); } .ds-print::after { content: ''; position: absolute; inset: 0; border: 1px solid #0b0b0b; pointer-events: none; } .ds-print:hover { box-shadow: 0 34px 60px -30px rgba(11, 11, 11, 0.6), 0 3px 8px rgba(11, 11, 11, 0.09); } .ds-print-hit { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; } .ds-print-hit:focus-visible { outline: 1px solid #0b0b0b; outline-offset: 29px; } .ds-photo { aspect-ratio: 4 / 5; background: linear-gradient(160deg, #2a2a2a, #9a9a9a 55%, #e0e0e0); } .ds-label { margin-top: 22px; max-width: 38ch; color: #0b0b0b; } .ds-label-title { display: block; font-family: 'Bodoni Moda Variable', 'Bodoni Moda', Didot, serif; font-variation-settings: 'opsz' 32; font-size: 23px; line-height: 1.2; letter-spacing: 0.01em; } .ds-label-meta { display: block; margin-top: 6px; font-family: 'Jost Variable', Jost, Futura, sans-serif; font-size: 13px; letter-spacing: 0.05em; line-height: 1.6; }"
+    },
+    {
+      "name": "Underline Field",
+      "kind": "input",
+      "refersTo": "field-input",
+      "description": "Tracked-capital label over a Bodoni entry on a single 1px underline that thickens on focus.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Venue</span><input class=\"ds-input\" placeholder=\"Where are you celebrating\" /></label>",
+      "css": ".ds-field { display: grid; gap: 8px; width: 320px; color: #0b0b0b; } .ds-field-label { font-family: 'Jost Variable', Jost, Futura, sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; } .ds-input { width: 100%; border: 0; border-bottom: 1px solid #0b0b0b; border-radius: 0; background: transparent; color: #0b0b0b; font: 400 19px/1.4 'Bodoni Moda Variable', 'Bodoni Moda', Didot, serif; font-variation-settings: 'opsz' 24; padding: 10px 0; transition: padding 0.4s cubic-bezier(0.16, 1, 0.3, 1); } .ds-input::placeholder { color: #0b0b0b; opacity: 0.62; font-style: italic; } .ds-input:focus { outline: none; border-bottom-width: 2px; padding-bottom: 9px; }"
+    },
+    {
+      "name": "Choice",
+      "kind": "chip",
+      "refersTo": "choice",
+      "description": "Square tracked-capital option box; selected fills ink.",
+      "html": "<div class=\"ds-choices\"><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-c\" checked /><span>Photography</span></label><label class=\"ds-choice\"><input type=\"radio\" name=\"ds-c\" /><span>Film</span></label></div>",
+      "css": ".ds-choices { display: flex; gap: 10px; } .ds-choice { position: relative; } .ds-choice input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; } .ds-choice span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border: 1px solid #0b0b0b; color: #0b0b0b; font-family: 'Jost Variable', Jost, Futura, sans-serif; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1); } .ds-choice input:checked + span { background: #0b0b0b; color: #ffffff; } .ds-choice input:focus-visible + span { outline: 1px solid #0b0b0b; outline-offset: 3px; }"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Tracked-capital links with a hairline underline on hover and current page; Check your date always last and underlined.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Weddings</a><a href=\"#\" aria-current=\"page\">Films</a><a href=\"#\">Studio</a><a href=\"#\">Packages</a><a href=\"#\" class=\"ds-nav-date\">Check your date</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; gap: 32px; color: #0b0b0b; } .ds-nav a { color: inherit; font-family: 'Jost Variable', Jost, Futura, sans-serif; font-size: 12px; font-weight: 450; letter-spacing: 0.3em; text-transform: uppercase; text-decoration: none; padding: 6px 0 5px; border-bottom: 1px solid transparent; transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav a:hover, .ds-nav a[aria-current='page'], .ds-nav a.ds-nav-date { border-bottom-color: #0b0b0b; } .ds-nav a.ds-nav-date:hover { background: #0b0b0b; color: #ffffff; padding-inline: 0.8em; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav a:focus-visible { outline: 1px solid #0b0b0b; outline-offset: 4px; }"
+    },
+    {
+      "name": "Screening Screen",
+      "kind": "custom",
+      "refersTo": "screen",
+      "description": "A film in the black room: black box, 1px white frame, grayscale footage, round play ring that fills white on hover.",
+      "html": "<div class=\"ds-room\"><button class=\"ds-screen\" aria-label=\"Play film\"><div class=\"ds-footage\"></div><span class=\"ds-play\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M7 4.5v15l13-7.5z\"/></svg></span></button></div>",
+      "css": ".ds-room { background: #000000; padding: 40px; } .ds-screen { position: relative; display: block; width: 220px; background: #000000; border: 1px solid #ffffff; padding: 12px; color: #ffffff; cursor: pointer; } .ds-footage { aspect-ratio: 9 / 16; background: linear-gradient(180deg, #1a1a1a, #6a6a6a); } .ds-play { position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; transform: translate(-50%, -50%); display: grid; place-items: center; border: 1px solid #ffffff; border-radius: 50%; background: rgba(0, 0, 0, 0.35); transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1); } .ds-play svg { margin-left: 3px; } .ds-screen:hover .ds-play, .ds-screen:focus-visible .ds-play { background: #ffffff; color: #000000; } .ds-screen:focus-visible { outline: 1px solid #ffffff; outline-offset: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Exhibition",
+    "overview": "Every wedding hangs as its own exhibition and the site is the gallery you walk through. The interface is a white gallery wall and black ink, nothing between: matted prints with one hairline frame and a soft cast shadow, hung off-centre on a shared 12-column wall, each with a small museum wall label beneath. Exhibition titles are wall vinyl in Bodoni Moda with the logo's wide tracking. Films live in a black screening room, and the room's lights are the only thing that moves.\n\nDensity is gallery-sparse. Prints are given wide air (section padding of 13 mat units, 14 between hung groups) and are never cropped by scroll, never scaled, never shifted. Hierarchy comes from two faces only, through case, size and spacing; colour and weight are not used as hierarchy devices. One proportion, the mat unit, sets every margin and gap.\n\nLight travels with the visitor: walking into the screening room fades a black layer up behind it, and opening a print dims the whole room to black around it (\"Lights down\"). Motion is opacity and darkness, never movement of a photograph.",
+    "keyCharacteristics": [
+      "Two values in the interface: wall white and ink; greys live only in the photographs.",
+      "One ink weight: every rule, frame, underline and focus ring is the same 1px line.",
+      "Matted prints with a hairline frame and a soft cast shadow, hung asymmetrically on a 12-column wall.",
+      "Museum wall labels: Bodoni title, Jost meta, tracked Jost capitals for actions.",
+      "A black screening room for film, entered by the lights going down.",
+      "Square corners everywhere except the round play and arrow controls on the dark screen."
+    ],
+    "rules": [
+      { "name": "The Two-Value Rule", "body": "The interface has no greys: no grey text, no grey fills, no tinted surfaces. Greys belong to the photographs and films (which are shown in black and white).", "section": "colors" },
+      { "name": "The Room Inversion Rule", "body": "A dark room swaps the tokens, not the components: inside it ink is white, wall is black, frames are white, and cast shadows switch off. Print mats stay white on the black wall.", "section": "colors" },
+      { "name": "The Two Faces Rule", "body": "Only Bodoni Moda and Jost. Hierarchy comes from case, size and spacing; Bodoni is never set bold.", "section": "typography" },
+      { "name": "The Wall Label Rule", "body": "Information about a picture is set as a museum label: Bodoni title, Jost meta line, then at most one tracked-capitals action. It sits below the print, never on it.", "section": "typography" },
+      { "name": "The Cast Shadow Rule", "body": "Only prints cast shadows. Buttons, fields, the header and panels stay flat.", "section": "elevation" },
+      { "name": "The Lights Rule", "body": "Motion is light: opacity and darkness only, on the house ease `cubic-bezier(0.16, 1, 0.3, 1)`. Photographs and films never move, scale or crop on scroll; text reveals by opacity alone.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do write every margin and gap as a multiple of the mat unit `u`.",
+      "Do keep the interface to wall and ink; let the photographs carry every grey.",
+      "Do draw every rule, frame, underline and focus ring as one 1px line.",
+      "Do hang prints in white mats with the hairline frame and the Hung shadow, offset on the 12-column wall with a dropped companion print.",
+      "Do caption pictures with a wall label below the print: Bodoni title, Jost meta joined with middle dots, one tracked-capital action.",
+      "Do show films in a black room with white frames, and enter that room by fading the light, not by moving anything.",
+      "Do set spoken words (ledes, quotes, testimonials) in italic Bodoni."
+    ],
+    "donts": [
+      "Don't add grey text, grey fills or tinted surfaces to the interface.",
+      "Don't scale, shift, crop or parallax a photograph or film on scroll; motion is opacity and darkness only.",
+      "Don't round corners on prints, buttons, fields or panels.",
+      "Don't set Bodoni bold or introduce a third typeface.",
+      "Don't put text or controls on top of a print; the label hangs beneath it.",
+      "Don't use sideways-swipe carousels on phones; reflow hangs into a two-column wall and use the bottom tab bar.",
+      "Don't give buttons, fields or the header a shadow; only prints are lit."
+    ]
+  }
+}
