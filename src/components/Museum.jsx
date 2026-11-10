@@ -98,6 +98,23 @@ export default function Museum({ shows }) {
   const cam = active == null ? { z: 1, tx: 0, ty: 0 } : { z, tx: 50 - keep(prints[active].x), ty: 50 - keep(EYE + 3) }
   const activeGroup = active == null ? null : prints[active].gi
   const cur = sel != null ? prints[sel] : null
+
+  // The framing spotlight: where the chosen frame lands on screen after the camera move,
+  // and its size, so the light is shaped to that exact frame (tall or wide) wherever it hangs.
+  const WALL_RATIO = 1520 / 2688
+  let spot = null
+  if (cur) {
+    const [w, h] = SIZES[cur.p.id] || [1200, 1600]
+    const wide = w > h
+    const hh = wide ? (isPhone ? 16 : 18) : 27 // frame height, % of the wall
+    const ww = hh * (w / h) * WALL_RATIO // frame width, % of the wall
+    spot = {
+      x: (cur.x + cam.tx - 50) * cam.z + 50,
+      y: (EYE + cam.ty - 50) * cam.z + 50,
+      w: ww * cam.z,
+      h: hh * cam.z,
+    }
+  }
   const curE = cur ? groups[cur.gi].e : null
 
   return (
@@ -138,7 +155,11 @@ export default function Museum({ shows }) {
             ))}
           </div>
         </div>
-        <span className="museum-spot" aria-hidden="true" />
+        <span
+          className="museum-spot"
+          aria-hidden="true"
+          style={spot ? { '--sx': `${spot.x}%`, '--sy': `${spot.y}%`, '--sw': `${spot.w}%`, '--sh': `${spot.h}%` } : undefined}
+        ><i /></span>
         <button className="m-walk m-walk-prev" onClick={() => walk(-1)} aria-label="Walk to the previous frame" tabIndex={sel != null ? 0 : -1}><IconArrow dir="left" /></button>
         <button className="m-walk m-walk-next" onClick={() => walk(1)} aria-label="Walk to the next frame" tabIndex={sel != null ? 0 : -1}><IconArrow /></button>
         <button className="m-leave" onClick={leave} aria-label="Step back from the wall" tabIndex={sel != null ? 0 : -1}><IconClose /></button>

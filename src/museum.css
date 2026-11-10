@@ -84,3 +84,22 @@ button.m-print { padding: 0; background: none; cursor: pointer; font: inherit; }
 
 /* Bright is the resting state once the lights are on; the flicker animation plays on top. */
 .museum-stage.in .museum-dark { opacity: 0; }
+
+/* Framing spotlight: the light is shaped to the chosen frame and follows it with the camera. */
+.museum-spot { background: none !important; overflow: hidden; }
+.museum-spot i {
+  position: absolute;
+  left: var(--sx, 50%);
+  top: var(--sy, 47%);
+  width: calc(var(--sw, 20%) + 5%);
+  height: calc(var(--sh, 50%) + 7%);
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  box-shadow: 0 0 34px 3000px rgba(0, 0, 0, 0.66);
+  background: radial-gradient(ellipse 70% 70% at 50% 40%, rgba(255, 240, 214, 0.16), rgba(255, 240, 214, 0) 75%);
+  transition: left 1.6s cubic-bezier(0.65, 0, 0.2, 1), top 1.6s cubic-bezier(0.65, 0, 0.2, 1), width 1.6s cubic-bezier(0.65, 0, 0.2, 1), height 1.6s cubic-bezier(0.65, 0, 0.2, 1);
+}
+@media (max-width: 760px) {
+  .museum-spot i { width: calc(var(--sw, 20%) + 7%); height: calc(var(--sh, 50%) + 9%); box-shadow: 0 0 22px 3000px rgba(0, 0, 0, 0.64); }
+}
+@media (prefers-reduced-motion: reduce) { .museum-spot i { transition: none; } }
