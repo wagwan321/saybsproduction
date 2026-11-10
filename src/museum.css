@@ -18,3 +18,62 @@
 .m-print.on { cursor: pointer; }
 .m-label { transition: opacity 0.8s var(--ease); }
 .museum-stage.in .m-label.off { opacity: 0.3; transition-delay: 0s; }
+
+/* ---------- Spotlight walk ---------- */
+button.m-print { padding: 0; background: none; cursor: pointer; font: inherit; }
+.m-print.off { filter: brightness(0.55) saturate(0.75); }
+.museum-spot { position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0; transition: opacity 0.9s var(--ease) 0.25s;
+  background: radial-gradient(ellipse 20% 46% at 50% 47%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.68) 100%); }
+.museum-stage.walking .museum-spot { opacity: 1; }
+.museum-stage.walking .m-label { opacity: 0 !important; }
+.m-walk, .m-leave { position: absolute; z-index: 4; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.85); background: rgba(0, 0, 0, 0.35); color: #fff; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease), background-color 0.3s var(--ease), color 0.3s var(--ease); }
+.m-walk { top: 50%; width: 56px; height: 56px; margin-top: -28px; }
+.m-walk svg { width: 22px; height: 22px; }
+.m-walk-prev { left: var(--gut); }
+.m-walk-next { right: var(--gut); }
+.m-leave { top: 16px; right: var(--gut); width: 44px; height: 44px; }
+.m-leave svg { width: 18px; height: 18px; }
+.museum-stage.walking .m-walk, .museum-stage.walking .m-leave { opacity: 1; pointer-events: auto; transition-delay: 0.6s, 0s, 0s; }
+.m-walk:hover, .m-leave:hover { background: #fff; color: #0b0b0b; }
+
+/* The museum placard slides up under the wall */
+.m-placard { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.55s var(--ease); background: #0b0b0b; color: #fff; }
+.m-placard.on { grid-template-rows: 1fr; }
+.m-placard > .wrap { overflow: hidden; min-height: 0; }
+.m-placard-in { display: flex; justify-content: space-between; align-items: center; gap: calc(var(--u) * 3); flex-wrap: wrap; }
+.m-placard.on .m-placard-in { padding-top: calc(var(--u) * 2.6); padding-bottom: calc(var(--u) * 2.6); }
+.m-placard-text { display: grid; gap: 4px; min-width: 0; }
+.m-placard-no { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.8; }
+.m-placard-t { font-family: var(--serif); font-weight: 300; font-size: clamp(19px, 1.7vw, 26px); line-height: 1.25; }
+.m-placard-m { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.75; }
+.m-placard-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.m-placard .button { --ink: #fff; --wall: #0b0b0b; border-color: #fff; }
+.m-placard .button:not(.ghost) { background: #fff; color: #0b0b0b; }
+.m-placard .button:not(.ghost):hover { background: transparent; color: #fff; }
+.m-placard .button.ghost { color: #fff; }
+.m-placard .button.ghost:hover { background: #fff; color: #0b0b0b; }
+
+/* Exhibition index buttons */
+.m-index button { display: inline-flex; align-items: baseline; gap: 12px; padding: 8px 0; border: 0; border-bottom: 1px solid transparent; background: none; color: inherit; font: inherit; cursor: pointer; transition: border-color 0.4s var(--ease); }
+.m-index button svg { width: 14px; height: 14px; align-self: center; }
+.m-index li.on button, .m-index button:hover { border-bottom-color: var(--ink); }
+
+@media (max-width: 760px) {
+  .museum-spot { background: radial-gradient(ellipse 26% 62% at 50% 48%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.66) 100%); }
+  .m-walk { width: 44px; height: 44px; margin-top: -22px; }
+  .m-walk-prev { left: 8px; }
+  .m-walk-next { right: 8px; }
+  .m-leave { top: 8px; right: 8px; width: 36px; height: 36px; }
+  .m-placard-actions { width: 100%; }
+  .m-placard-actions .button { flex: 1; }
+  .m-index button { display: flex; width: 100%; min-height: 48px; padding: 14px 0; border-bottom: 0; align-items: center; }
+  .m-index button svg { margin-left: auto; }
+  .m-index li.on .m-i-title { text-decoration: underline; text-underline-offset: 0.2em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m-placard, .museum-spot { transition: none; }
+}
+@media (max-width: 760px) {
+  .m-placard .button { letter-spacing: 0.14em; padding: 0 12px; white-space: nowrap; }
+  .m-leave { width: 44px; height: 44px; }
+}

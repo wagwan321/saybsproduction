@@ -40,15 +40,16 @@ function ServicesAccordion() {
   const toggle = (i) => {
     const next = open === i ? -1 : i
     setOpen(next)
-    if (next >= 0) {
-      // After the previous panel has folded away, bring the opened service to the top of the screen.
-      setTimeout(() => {
-        const el = rows.current[next]
-        if (!el) return
-        const y = el.getBoundingClientRect().top + window.scrollY - 76
-        window.scrollTo({ top: y, behavior: reducedMotion() ? 'auto' : 'smooth' })
-      }, 420)
-    }
+    if (next < 0) return
+    // Wait until the previous panel has fully folded and the new one has opened, then
+    // bring the opened service (title and picture) fully onto the screen.
+    setTimeout(() => {
+      const el = rows.current[next]
+      if (!el) return
+      const head = document.querySelector('.header')?.offsetHeight || 60
+      const y = el.getBoundingClientRect().top + window.scrollY - head - 8
+      window.scrollTo({ top: y, behavior: reducedMotion() ? 'auto' : 'smooth' })
+    }, 520)
   }
   return (
     <section className="services" aria-labelledby="what-we-do">
@@ -67,7 +68,7 @@ function ServicesAccordion() {
                 <div className="acc-body" id={`acc-${x.id}`} role="region" aria-label={x.title}>
                   <div className="acc-inner">
                     <figure className="print acc-media">
-                      <Media m={x.media} active={on} eager={i === 0} />
+                      <span className="acc-pic"><Media m={x.media} active={on} eager /></span>
                     </figure>
                     <p className="lede">{x.line}</p>
                     <p className="body">{x.text}</p>

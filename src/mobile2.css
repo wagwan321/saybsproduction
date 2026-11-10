@@ -52,3 +52,14 @@
   .museum-foot { margin-top: calc(var(--u) * 3); }
   .lights-go { margin-top: 6px; }
 }
+
+/* Accordion pictures: the white mat shows on all four sides; the picture develops inside it. */
+.acc-media { aspect-ratio: 4 / 5; padding: 0; }
+.acc-pic { position: absolute; inset: var(--mat-s); overflow: hidden; background: #ececec; }
+.acc-pic img,
+.acc-pic video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.acc-body { transition: grid-template-rows 0.42s var(--ease); }
+
+/* Museum: keep the landscape print clear of its neighbours */
+.m-print.wide { height: 18%; }
+@media (max-width: 760px) { .m-print.wide { height: 16%; } }
