@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { photoSrc, useLights } from './Lights.jsx'
 import { SIZES } from '../media.js'
-import { useInView, useNarrow } from '../motion.js'
+import { useNarrow } from '../motion.js'
 import { IconArrow, IconClose } from './Icons.jsx'
 import Split from './Split.jsx'
 
@@ -17,13 +17,13 @@ function HungPrint({ p, x, i, state, onEnter, onLeave, onPick, label }) {
   return (
     <button
       className={`m-print${wide ? ' wide' : ''}${state}`}
-      style={{ left: `${x}%`, top: `${EYE}%`, '--ar': `${w} / ${h}`, transitionDelay: `${900 + i * 160}ms` }}
+      style={{ left: `${x}%`, top: `${EYE}%`, '--ar': `${w} / ${h}`, '--d': `${900 + i * 160}ms` }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
       onClick={onPick}
       aria-label={label}
     >
-      <img src={photoSrc(p.id)} alt="" loading="lazy" decoding="async" />
+      <img src={photoSrc(p.id)} alt="" loading="eager" decoding="async" />
     </button>
   )
 }
@@ -32,7 +32,25 @@ function HungPrint({ p, x, i, state, onEnter, onLeave, onPick, label }) {
 // room dims around its spotlight and a museum placard slides up underneath, with arrows to
 // walk along the wall, Open (full screen) and See the wedding. Hover previews on desktop.
 export default function Museum({ shows }) {
-  const ref = useInView({ rootMargin: '0px 0px -25% 0px' })
+  // Lights on once the wall comes into view. Kept in React state (not a class added by hand)
+  // so re-renders while walking never switch the lights back off.
+  const ref = useRef(null)
+  const [lit, setLit] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) { setLit(true); return }
+    const io = new IntersectionObserver(([x]) => { if (x.isIntersecting) { setLit(true); io.disconnect() } }, { rootMargin: '0px 0px -25% 0px' })
+    io.observe(el)
+    // Backup for browsers that hold the observer back: a plain scroll check.
+    const check = () => {
+      const r = el.getBoundingClientRect()
+      if (r.top < window.innerHeight * 0.8 && r.bottom > 0) { setLit(true); window.removeEventListener('scroll', check) }
+    }
+    window.addEventListener('scroll', check, { passive: true })
+    check()
+    return () => { io.disconnect(); window.removeEventListener('scroll', check) }
+  }, [])
   const isPhone = useNarrow(760)
   const { open } = useLights()
   const [hover, setHover] = useState(null)
@@ -46,6 +64,8 @@ export default function Museum({ shows }) {
     return { kind: 'photo', id: x.p.id, alt: x.p.alt, title: e.title, meta: [e.kind, e.place, e.date].join(' · '), link: { to: `/weddings/${e.slug}`, label: 'See the wedding' } }
   })
 
+  // Choosing a frame always turns the lights on.
+  useEffect(() => { if (sel != null) setLit(true) }, [sel])
   const walk = (d) => setSel((s) => (s == null ? 0 : (s + d + n) % n))
   const leave = () => setSel(null)
 
@@ -88,7 +108,7 @@ export default function Museum({ shows }) {
       </div>
       <div
         ref={ref}
-        className={`museum-stage${sel != null ? ' walking' : ''}`}
+        className={`museum-stage${lit ? ' in' : ''}${sel != null ? ' walking' : ''}`}
         onMouseLeave={() => setHover(null)}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}

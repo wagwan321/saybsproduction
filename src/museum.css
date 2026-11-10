@@ -77,3 +77,10 @@ button.m-print { padding: 0; background: none; cursor: pointer; font: inherit; }
   .m-placard .button { letter-spacing: 0.14em; padding: 0 12px; white-space: nowrap; }
   .m-leave { width: 44px; height: 44px; }
 }
+
+/* Entrance delay only applies to the prints appearing; dimming while walking is immediate. */
+.m-print { transition: opacity 1s var(--ease) var(--d, 0ms), filter 0.6s var(--ease), box-shadow 0.8s var(--ease); }
+.m-print img { transition: clip-path 1.4s cubic-bezier(0.77, 0, 0.18, 1) var(--d, 0ms); }
+
+/* Bright is the resting state once the lights are on; the flicker animation plays on top. */
+.museum-stage.in .museum-dark { opacity: 0; }
