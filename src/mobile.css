@@ -1,0 +1,104 @@
+/* =====================================================================
+   Phones and tablets (Nov 2026 mobile pass). Loaded last so it wins.
+   ===================================================================== */
+
+/* ---------- What we do: one tappable version on phones ---------- */
+@media (max-width: 900px) {
+  .svc-stack { display: none !important; }
+  .services { padding: calc(var(--u) * 10) 0; }
+  .svc-hover { display: flex; flex-direction: column; align-items: stretch; gap: calc(var(--u) * 3); }
+  .svc-hover .svc-left { display: contents; }
+  .svc-hover .h-display { order: 0; margin-bottom: 0; }
+  .svc-hover .svc-stage { order: 1; width: 100%; justify-items: stretch; }
+  .svc-hover .svc-frame { width: 100%; max-width: 460px; justify-self: center; aspect-ratio: 4 / 5; }
+  .svc-hover .svc-stage .link { display: none; }
+  .svc-hover .svc-list { order: 2; }
+  .svc-hover .svc-detail { order: 3; margin-top: 0; min-height: 0; display: grid; }
+  .svc-hover .svc-copy { position: static; grid-area: 1 / 1; }
+  .svc-hover .svc-also { order: 4; margin-top: 0; }
+  .svc-hover::after { content: none; }
+  .svc-list li button { min-height: 52px; padding: 12px 0; align-items: center; }
+  .svc-list li.on button { padding-left: 12px; }
+  .svc-t { font-size: 21px; }
+}
+
+/* ---------- Photo pairs on wedding and studio pages ---------- */
+@media (max-width: 760px) {
+  .hang-row.pair .print-wrap:nth-child(1),
+  .hang-row.pair .print-wrap:nth-child(2),
+  .hang-row.pair.v0 .print-wrap:nth-child(1),
+  .hang-row.pair.v0 .print-wrap:nth-child(2),
+  .hang-row.pair.v1 .print-wrap:nth-child(1),
+  .hang-row.pair.v1 .print-wrap:nth-child(2) { grid-column: auto; margin-top: 0; }
+  .hang-row.single.l .print-wrap,
+  .hang-row.single.r .print-wrap,
+  .hang-row.wide.l .print-wrap,
+  .hang-row.wide.r .print-wrap { grid-column: 1 / -1; }
+  .hang-row.single .print-wrap { width: 86%; justify-self: center; }
+  .hang-row { align-items: end; }
+  .hang-words { padding: 0; }
+  .packages-hang .print-wrap:nth-child(1),
+  .packages-hang .print-wrap:nth-child(2) { grid-column: 1 / -1; margin-top: calc(var(--u) * 3); }
+  .exhibit-entry { padding: calc(var(--u) * 7) 0; }
+}
+
+/* ---------- Screening room and films sized for a phone ---------- */
+@media (max-width: 760px) {
+  .screening .wrap { gap: calc(var(--u) * 5); padding-top: calc(var(--u) * 9); padding-bottom: calc(var(--u) * 9); }
+  .screening .screen { width: min(78%, 300px); }
+  .screening .screen video { aspect-ratio: 4 / 5; }
+  .feature .screen { width: min(80%, 320px); }
+  .feature { gap: calc(var(--u) * 5); padding-bottom: calc(var(--u) * 8); }
+  .program .t { font-size: 20px; }
+}
+
+/* ---------- Readable small text ---------- */
+@media (max-width: 760px) {
+  .logo--nav .logo-tag { font-size: 8.5px; }
+  .no, .svc-n, .svc-jump span, .step-n, .program .k, .door-n { font-size: 11px; }
+  .hero-tag { font-size: 11px; letter-spacing: 0.3em; }
+  .label .label-meta, .m-meta { font-size: 12px; }
+  body { font-size: 16.5px; }
+}
+
+/* ---------- Thumb-sized links on touch screens ---------- */
+@media (pointer: coarse), (max-width: 760px) {
+  .link { min-height: 44px; padding-top: 12px; padding-bottom: 11px; }
+  .footer-cols li a,
+  .footer-cols p a { display: inline-block; padding: 10px 0; }
+  .footer-cols li, .footer-cols p { line-height: 1.4; }
+  .credits dd a { display: inline-block; padding: 9px 0; }
+  .visit a, .contact-lines dd a { display: inline-block; padding: 8px 0; }
+  .m-index a { min-height: 48px; }
+  .quote-dots button { width: 48px; height: 48px; }
+}
+
+/* ---------- Page heads and spacing ---------- */
+@media (max-width: 760px) {
+  .page-head { padding: calc(var(--u) * 7) 0 calc(var(--u) * 6); }
+  .page-head .vinyl { font-size: clamp(44px, 13vw, 64px); letter-spacing: 0.14em; margin-right: -0.14em; }
+  .page-head.split .wrap { gap: calc(var(--u) * 3); }
+  .statement { padding: calc(var(--u) * 10) 0 calc(var(--u) * 6); }
+  .statement p { font-size: clamp(27px, 8vw, 34px); }
+  .process { padding: calc(var(--u) * 10) 0; }
+  .quotes { padding: calc(var(--u) * 10) 0; }
+  .section { padding: calc(var(--u) * 9) 0; }
+  .museum { padding: calc(var(--u) * 10) 0 calc(var(--u) * 8); }
+  .museum-head { margin-bottom: calc(var(--u) * 4); }
+  .h-display { font-size: clamp(34px, 10vw, 46px); }
+  .footer { padding-top: calc(var(--u) * 8); }
+  .footer .logo { margin-bottom: calc(var(--u) * 6); }
+}
+
+/* Services page: shorter pictures on phones */
+@media (max-width: 760px) {
+  .svc-block-media { aspect-ratio: 4 / 3; }
+  .svc-blocks { gap: calc(var(--u) * 9); }
+  .svc-block { gap: calc(var(--u) * 3); }
+  .svc-jump { padding-bottom: calc(var(--u) * 5); }
+  .svc-jump a { padding: 12px 14px; }
+}
+@media (max-width: 760px) {
+  .svc-jump { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .svc-jump a { font-size: 11px; letter-spacing: 0.1em; padding: 12px 10px; min-height: 48px; align-items: center; }
+}

@@ -61,7 +61,7 @@ export default function Museum({ shows }) {
     <section className="museum" aria-labelledby="museum-title">
       <div className="wrap museum-head">
         <Split id="museum-title" className="h-display" text="The Museum of Weddings" />
-        <p className="body">Three weddings, hung like exhibitions. Point at a photograph to step closer to it, then click to go inside.</p>
+        <p className="body">Three weddings, hung like exhibitions. Step closer to a photograph, then open it to go inside the wedding.</p>
       </div>
       <div ref={ref} className="museum-stage" onMouseLeave={() => setFocus(null)}>
         <div className="museum-frame">

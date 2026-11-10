@@ -87,39 +87,6 @@ export default function Services() {
         </div>
       </div>
 
-      {/* Phones: the same services, one after another */}
-      <div className="svc-stack wrap">
-        <h2 className="h-display">What we do</h2>
-        {SERVICES.map((x, i) => <StackItem key={x.id} s={x} i={i} />)}
-        <p className="svc-also">{ALSO}</p>
-        <Link className="link" to="/services">All services and collections <IconArrow /></Link>
-      </div>
     </section>
-  )
-}
-
-function StackItem({ s, i }) {
-  const ref = useInView({ rootMargin: '0px 0px -15% 0px' })
-  const [on, setOn] = useState(false)
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const io = new IntersectionObserver(([e]) => setOn(e.isIntersecting), { threshold: 0.4 })
-    io.observe(el)
-    return () => io.disconnect()
-  }, [ref])
-  return (
-    <article ref={ref} className="svc-card">
-      <figure className="print s develop">
-        <Media m={s.media} active={on} />
-      </figure>
-      <div className="svc-card-copy">
-        <span className="svc-n">{String(i + 1).padStart(2, '0')}</span>
-        <h3 className="h-section">{s.title}</h3>
-        <p className="lede">{s.line}</p>
-        <p className="body">{s.text}</p>
-        <ul className="svc-items">{s.items.map((t) => <li key={t}>{t}</li>)}</ul>
-      </div>
-    </article>
   )
 }
