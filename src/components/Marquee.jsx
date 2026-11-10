@@ -23,7 +23,7 @@ export default function Marquee({ rows }) {
                       onClick={() => open(all.map((x) => ({ kind: 'photo', id: x.id, alt: x.alt, title: 'SAYBS', meta: 'Moments' })), all.findIndex((x) => x.id === p.id))}
                       aria-label={`View larger: ${p.alt}`}
                     >
-                      <img src={photoSrc(p.id)} alt={copy === 1 ? '' : p.alt} width={w} height={h} loading="lazy" decoding="async" />
+                      <img src={photoSrc(p.id)} alt={copy === 1 ? '' : p.alt} width={w} height={h} loading="eager" decoding="async" />
                     </button>
                   )
                 })}

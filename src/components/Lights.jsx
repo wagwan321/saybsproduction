@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { IconArrow, IconClose } from './Icons.jsx'
 
 // "Lights down": opening a print or a film dims the room to black and shows the
@@ -108,7 +109,9 @@ export function LightsProvider({ children }) {
               {item.title && <span className="label-title">{item.title}</span>}
               {item.meta && <span className="label-meta">{item.meta}</span>}
             </div>
-            {item.kind !== 'film' && <span className="label-meta">{item.alt}</span>}
+            {item.link
+              ? <Link className="button light lights-go" to={item.link.to} onClick={() => { setView(null); setState('closed') }}>{item.link.label} <IconArrow /></Link>
+              : item.kind !== 'film' && <span className="label-meta">{item.alt}</span>}
           </div>
         </div>
       )}

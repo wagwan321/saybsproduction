@@ -8,6 +8,7 @@ import './styles.css'
 import './motion.css'
 import './museum.css'
 import './mobile.css'
+import './mobile2.css'
 import App from './App.jsx'
 
 document.documentElement.classList.add('js')

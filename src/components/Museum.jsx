@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { photoSrc } from './Lights.jsx'
+import { photoSrc, useLights } from './Lights.jsx'
 import { SIZES } from '../media.js'
-import { useInView, reducedMotion } from '../motion.js'
+import { useInView, useNarrow } from '../motion.js'
 import { IconArrow } from './Icons.jsx'
 import Split from './Split.jsx'
 
@@ -11,7 +11,7 @@ import Split from './Split.jsx'
 const POOLS = [13, 27.5, 43, 59, 74, 89]
 const EYE = 44 // eye line, % of the wall image height
 
-function HungPrint({ p, x, i, e, state, onFocus, onBlur }) {
+function HungPrint({ p, x, i, e, state, onFocus, onBlur, onTap }) {
   const [w, h] = SIZES[p.id] || [1200, 1600]
   const wide = w > h
   return (
@@ -22,7 +22,8 @@ function HungPrint({ p, x, i, e, state, onFocus, onBlur }) {
       onMouseEnter={onFocus}
       onFocus={onFocus}
       onBlur={onBlur}
-      aria-label={`${p.alt}. Enter the exhibition: ${e.title}`}
+      onClick={onTap}
+      aria-label={onTap ? `Open larger: ${p.alt}` : `${p.alt}. Enter the exhibition: ${e.title}`}
     >
       <img src={photoSrc(p.id)} alt="" loading="lazy" decoding="async" />
     </Link>
@@ -32,25 +33,22 @@ function HungPrint({ p, x, i, e, state, onFocus, onBlur }) {
 export default function Museum({ shows }) {
   const ref = useInView({ rootMargin: '0px 0px -25% 0px' })
   const [focus, setFocus] = useState(null)
-  const [tour, setTour] = useState(0)
   const groups = shows.map(({ e, prints }, g) => ({ e, prints, xs: [POOLS[g * 2], POOLS[g * 2 + 1]], cx: (POOLS[g * 2] + POOLS[g * 2 + 1]) / 2 }))
   // Every hung print, in order along the wall: the camera walks up to one print at a time.
   const prints = groups.flatMap((g, gi) => g.prints.slice(0, 2).map((p, k) => ({ p, x: g.xs[k], gi, i: gi * 2 + k })))
 
-  // Phones: the camera tours the three exhibitions on its own.
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 760px)')
-    if (!mq.matches || reducedMotion()) return
-    const t = setInterval(() => setTour((v) => (v + 1) % prints.length), 4200)
-    return () => clearInterval(t)
-  }, [prints.length])
-
-  const isPhone = typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches
-  const active = isPhone ? tour : focus
+  // Phones: the whole wall fits the screen; tapping a photograph opens it full screen.
+  const isPhone = useNarrow(760)
+  const { open } = useLights()
+  const viewer = prints.map((x) => {
+    const e = groups[x.gi].e
+    return { kind: 'photo', id: x.p.id, alt: x.p.alt, title: e.title, meta: [e.kind, e.place, e.date].join(' · '), link: { to: `/weddings/${e.slug}`, label: 'See the wedding' } }
+  })
+  const active = isPhone ? null : focus
   // Walk toward the chosen exhibition, never past the edge of the wall photograph.
   // On phones the wall is wider than the screen (about 42% of it shows at once).
-  const z = isPhone ? 1.9 : 2.3
-  const view = isPhone ? 0.42 : 1
+  const z = 2.3
+  const view = 1
   const keep = (c) => Math.min(100 - (50 * view) / z, Math.max((50 * view) / z, c))
   const cam = active == null
     ? { z: 1, tx: 0, ty: 0 }
@@ -79,8 +77,9 @@ export default function Museum({ shows }) {
               i={x.i}
               e={groups[x.gi].e}
               state={active === x.i ? ' on' : active != null ? ' off' : ''}
-              onFocus={() => setFocus(x.i)}
+              onFocus={() => !isPhone && setFocus(x.i)}
               onBlur={() => setFocus(null)}
+              onTap={isPhone ? (ev) => { ev.preventDefault(); open(viewer, x.i) } : undefined}
             />
           ))}
           {groups.map((g, gi) => (

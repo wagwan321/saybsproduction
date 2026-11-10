@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useInView, reducedMotion } from '../motion.js'
+import { useInView, useNarrow, reducedMotion } from '../motion.js'
 import { photoSrc, filmSrc, posterSrc } from './Lights.jsx'
 import { SIZES } from '../media.js'
 import { IconArrow } from './Icons.jsx'
@@ -27,6 +27,65 @@ function Media({ m, active, eager }) {
 // "What we do": the visitor moves through the services with the mouse (or taps / arrow keys).
 // Pointing at a service wipes the framed picture to its photograph or film and shows its details.
 export default function Services() {
+  const narrow = useNarrow(900)
+  if (narrow) return <ServicesAccordion />
+  return <ServicesHover />
+}
+
+// Phones: an accordion. Opening a service shows its picture and details right under it,
+// and closes the one that was open.
+function ServicesAccordion() {
+  const [open, setOpen] = useState(0)
+  const rows = useRef([])
+  const toggle = (i) => {
+    const next = open === i ? -1 : i
+    setOpen(next)
+    if (next >= 0) {
+      // After the previous panel has folded away, bring the opened service to the top of the screen.
+      setTimeout(() => {
+        const el = rows.current[next]
+        if (!el) return
+        const y = el.getBoundingClientRect().top + window.scrollY - 76
+        window.scrollTo({ top: y, behavior: reducedMotion() ? 'auto' : 'smooth' })
+      }, 420)
+    }
+  }
+  return (
+    <section className="services" aria-labelledby="what-we-do">
+      <div className="wrap svc-acc">
+        <Split id="what-we-do" className="h-display" text="What we do" />
+        <ol className="acc-list">
+          {SERVICES.map((x, i) => {
+            const on = open === i
+            return (
+              <li key={x.id} ref={(el) => (rows.current[i] = el)} className={on ? 'on' : ''}>
+                <button className="acc-head" aria-expanded={on} aria-controls={`acc-${x.id}`} onClick={() => toggle(i)}>
+                  <span className="svc-n">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="svc-t">{x.title}</span>
+                  <span className="acc-sign" aria-hidden="true" />
+                </button>
+                <div className="acc-body" id={`acc-${x.id}`} role="region" aria-label={x.title}>
+                  <div className="acc-inner">
+                    <figure className="print acc-media">
+                      <Media m={x.media} active={on} eager={i === 0} />
+                    </figure>
+                    <p className="lede">{x.line}</p>
+                    <p className="body">{x.text}</p>
+                    <ul className="svc-items">{x.items.map((t) => <li key={t}>{t}</li>)}</ul>
+                  </div>
+                </div>
+              </li>
+            )
+          })}
+        </ol>
+        <p className="svc-also">{ALSO}</p>
+        <Link className="link" to="/services">All services and collections <IconArrow /></Link>
+      </div>
+    </section>
+  )
+}
+
+function ServicesHover() {
   const [at, setAt] = useState(0)
   const n = SERVICES.length
   const box = useInView()

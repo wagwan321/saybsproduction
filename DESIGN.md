@@ -304,3 +304,9 @@ The user corrected three things after the first round; these override anything a
 - The coloured rooms were tried and dropped at the user's request; the museum is the single white Higgsfield gallery wall again (`public/media/museum/hall.jpg`), six prints in three exhibition pairs with wall labels.
 - **Fine gold frames:** each print wears the Higgsfield carved gold frame (`frame-gold.webp`) drawn thin (CSS `border-image` slice 120, border clamp(3px, 0.42vw, 7px)), no white mat.
 - **Pointing at one print** walks the camera up to that single print (scale 2.3, phones 1.9) and dims the other prints and labels; clicking a print enters that wedding. Phones tour the six prints automatically.
+
+## Phones, 10 November 2026
+
+- **What we do** is an accordion on screens up to 900px: opening a service shows its picture (or film) and details right under it and closes the previous one; the opened row scrolls to the top.
+- **Photo strips** keep moving on touch screens (no hover pause), with 240px photos on phones, all loaded up front.
+- **Museum on phones:** the whole wall fits the screen (no camera tour); tapping a photo opens it full screen in Lights down, walkable through all six, with a "See the wedding" button.

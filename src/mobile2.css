@@ -1,0 +1,54 @@
+/* =====================================================================
+   Phones, round 2 (10 Nov 2026): services accordion, moving photo strips,
+   the whole museum wall on one screen.
+   ===================================================================== */
+
+/* ---------- What we do: accordion, the picture opens under its service ---------- */
+.svc-acc .h-display { margin-bottom: calc(var(--u) * 3); }
+.acc-list { border-top: var(--line); }
+.acc-list > li { border-bottom: var(--line); }
+.acc-head { width: 100%; display: flex; align-items: center; gap: 14px; min-height: 60px; padding: 14px 0; border: 0; background: none; text-align: left; cursor: pointer; color: inherit; }
+.acc-head .svc-t { font-size: 22px; opacity: 0.45; transition: opacity 0.4s var(--ease); }
+.acc-list > li.on .acc-head .svc-t { opacity: 1; }
+.acc-sign { position: relative; margin-left: auto; width: 18px; height: 18px; flex: none; }
+.acc-sign::before,
+.acc-sign::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: currentColor; transition: transform 0.5s var(--ease); }
+.acc-sign::after { transform: rotate(90deg); }
+.acc-list > li.on .acc-sign::after { transform: rotate(0deg); }
+.acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+.acc-list > li.on .acc-body { grid-template-rows: 1fr; }
+.acc-inner { overflow: hidden; min-height: 0; }
+.acc-media { position: relative; aspect-ratio: 4 / 5; margin: 4px 0 calc(var(--u) * 2.4); overflow: hidden; }
+.acc-media img,
+.acc-media video { width: 100%; height: 100%; object-fit: cover; display: block; background: #ececec; transform: scale(1.1); clip-path: inset(100% 0 0 0); transition: clip-path 1s cubic-bezier(0.77, 0, 0.18, 1) 0.15s, transform 1.6s var(--ease) 0.15s; }
+.acc-list > li.on .acc-media img,
+.acc-list > li.on .acc-media video { transform: none; clip-path: inset(0 0 0 0); }
+.acc-inner .body { margin-top: calc(var(--u) * 1.2); }
+.acc-inner .svc-items { margin-bottom: calc(var(--u) * 3); }
+.svc-acc .svc-also { margin-top: calc(var(--u) * 3); }
+.svc-acc .link { margin-top: calc(var(--u) * 2); }
+
+/* ---------- Photo strips: always moving on touch screens, bigger on phones ---------- */
+@media (hover: none) {
+  .marquee:hover .mq-track { animation-play-state: running; }
+}
+@media (max-width: 760px) {
+  .marquee { padding: calc(var(--u) * 7) 0; gap: calc(var(--u) * 2); }
+  .mq-item { height: 240px; }
+  .mq-set { gap: 14px; padding-right: 14px; }
+  .mq-track { animation-duration: 38s; }
+  .mq-row.rev .mq-track { animation-duration: 46s; }
+}
+
+/* ---------- Museum: the whole wall on one phone screen ---------- */
+@media (max-width: 760px) {
+  .museum-stage { aspect-ratio: 2688 / 1520; max-height: none; }
+  .museum-frame { inset: 0; height: auto; aspect-ratio: auto; transform: none; }
+  .museum-wall { object-position: 50% 50%; }
+  .m-title { font-size: 9px; }
+  .m-label { top: 64%; }
+  .m-print { border-width: 2px; }
+  .museum-head .body { font-size: 15px; }
+  .museum-foot { margin-top: calc(var(--u) * 3); }
+  .lights-go { margin-top: 6px; }
+}

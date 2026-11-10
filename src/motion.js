@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 // One shared scroll/resize loop drives every scroll-linked element on the page.
 // Each element gets a CSS custom property (0 to 1) and CSS does the drawing.
@@ -70,4 +70,18 @@ export function useInView(options = { rootMargin: '0px 0px -10% 0px' }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return ref
+}
+
+/** True while the screen is at most `max` pixels wide (follows rotation and resizing). */
+export function useNarrow(max = 900) {
+  const q = `(max-width: ${max}px)`
+  const [narrow, setNarrow] = useState(() => typeof window !== 'undefined' && window.matchMedia(q).matches)
+  useEffect(() => {
+    const mq = window.matchMedia(q)
+    const on = () => setNarrow(mq.matches)
+    on()
+    mq.addEventListener('change', on)
+    return () => mq.removeEventListener('change', on)
+  }, [q])
+  return narrow
 }
