@@ -52,7 +52,7 @@ export default function Home() {
 
       <Marquee rows={MARQUEE} />
 
-      <Museum shows={shows} />
+      <Museum />
 
       <section ref={room} className="room screening" aria-labelledby="screening">
         <div className="wrap">

@@ -30,13 +30,13 @@ export const EXHIBITIONS = [
     wordsBy: 'Elissa',
     film: { title: 'The Beat of Us', url: 'https://www.instagram.com/p/DdZS1u1CAq6/' },
     home: [p('elissa-roy-10', 'Roy and Elissa laughing together among the trees'), p('elissa-roy-13', 'Roy kissing Elissa on the forehead'), p('elissa-roy-01', 'Elissa looking down at her white bouquet by the window')],
+    room: { n: 'I', wall: '#24342b' },
+    museumExtra: [p('elissa-roy-07', 'Roy fixing his cufflinks before the ceremony'), p('elissa-roy-08', 'A bouquet of white hydrangeas in Elissa’s hands')],
     cover: [p('elissa-roy-09', 'Roy and Elissa walking through the garden'), p('elissa-roy-04', 'Elissa in her gown among white flowers')],
     hang: [
-      p('elissa-roy-07', 'Roy fixing his cufflinks before the ceremony'),
       p('elissa-roy-02', 'Roy alone in a dark doorway'),
       p('elissa-roy-03', 'Wedding favours stamped with an R and E monogram'),
       p('elissa-roy-05', 'Favour boxes and the wedding calendar'),
-      p('elissa-roy-08', 'A bouquet of white hydrangeas in Elissa’s hands'),
       p('elissa-roy-11', 'Roy and Elissa face to face beneath her veil'),
       p('elissa-roy-00', 'Elissa and Roy on the terrace before the ceremony'),
       p('elissa-roy-16', 'A kiss on the terrace at dusk'),
@@ -63,16 +63,14 @@ export const EXHIBITIONS = [
     words: 'Lucky in love, luckier in life.',
     wordsBy: null,
     home: [p('valeria-jacob-a-05', 'Valeria posing on a leather sofa'), p('valeria-jacob-b-00', 'Valeria and Jacob laughing together, seated'), p('valeria-jacob-a-00', 'Valeria and Jacob in a dining room hung with gilded mirrors')],
+    room: { n: 'II', wall: '#4a1d1f' },
+    museumExtra: [p('valeria-jacob-b-01', 'A black rose beside a postcard that reads How lucky are we'), p('valeria-jacob-b-03', 'Valeria and Jacob with a bouquet of dark roses'), p('valeria-jacob-b-07', 'Jacob slipping the ring onto Valeria’s finger'), p('valeria-jacob-a-08', 'A place card that reads We got engaged')],
     cover: [p('valeria-jacob-a-02', 'Valeria seated in the ornate dining room'), p('valeria-jacob-b-09', 'Jacob laughing beneath a chandelier')],
     hang: [
-      p('valeria-jacob-b-01', 'A black rose beside a postcard that reads How lucky are we'),
-      p('valeria-jacob-b-03', 'Valeria and Jacob with a bouquet of dark roses'),
-      p('valeria-jacob-b-07', 'Jacob slipping the ring onto Valeria’s finger'),
       p('valeria-jacob-b-05', 'Two hands and two rings'),
       p('valeria-jacob-b-02', 'Valeria and Jacob by the rose wall'),
       p('valeria-jacob-b-08', 'The couple framed inside a giant heart'),
       p('valeria-jacob-b-10', 'The dessert table with roses and frames'),
-      p('valeria-jacob-a-08', 'A place card that reads We got engaged'),
       p('valeria-jacob-a-01', 'Long tables set beneath the chandeliers'),
       p('valeria-jacob-a-06', 'Jacob with a glass in hand'),
       p('valeria-jacob-a-10', 'Jacob seated beside an antique lamp'),
@@ -94,10 +92,10 @@ export const EXHIBITIONS = [
     words: 'Authentic shots showing real moments and emotions.',
     wordsBy: 'Maya Bou Mansour',
     home: [p('brides-00', 'A bride on a terrace above the sea'), p('archive-ik-0230', 'A bride laughing, looking up')],
+    room: { n: 'III', wall: '#1e2a3a' },
+    museumExtra: [p('brides-01', 'A bride with her bouquet before a flower arch'), p('brides-02', 'A bride in an off-shoulder gown')],
     cover: [p('brides-03', 'A bride smiling with her bouquet'), p('brides-04', 'A bride in a fitted gown on a polished black floor')],
     hang: [
-      p('brides-01', 'A bride with her bouquet before a flower arch'),
-      p('brides-02', 'A bride in an off-shoulder gown'),
       p('archive-jp1-0340', 'A couple framed by tall open doors above the sea'),
       p('brides-06', 'A bride and her bridesmaid'),
     ],
@@ -237,3 +235,10 @@ export const PACKAGE_PHOTOS = [
 ]
 
 export const INQUIRE_PHOTO = p('elissa-roy-14', 'Roy and Elissa crossing a stone courtyard')
+
+// The Museum of Weddings: each exhibition's room holds its home and cover prints plus a few more.
+// (Elissa & Roy's and Valeria & Jacob's first home prints lead the services instead.)
+export const museumOf = (e) => {
+  const lead = e.slug === 'brides' ? e.home : e.home.slice(1)
+  return [...lead, ...e.cover, ...e.museumExtra]
+}

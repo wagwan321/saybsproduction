@@ -298,3 +298,10 @@ The user corrected three things after the first round; these override anything a
 - **Opening films:** Nizar & Monica, Moments, Rana & Pierre (the Elie & Rula reel is only 641 x 358 and blurs at panel size). A stronger centre shade keeps the white SAYBS readable on any frame.
 - **What we do is mouse-driven:** hovering, focusing or clicking a service (arrow keys move between them) wipes the framed picture to that service. No pinned scroll.
 - **The Museum of Weddings** replaces Recent weddings on the homepage: a Higgsfield-generated empty gallery wall (`public/media/museum/hall.jpg`, prompt embedded in the file) with six spotlight pools; each exhibition hangs as two real prints under a pair of lights with a wall label. The lights flicker on when the section arrives, prints develop in sequence, pointing at an exhibition walks the camera closer (scale 1.9) and dims the others; phones tour the three exhibitions automatically. Clicking enters the wedding.
+
+## Revision 4, 10 November 2026: the museum becomes rooms
+
+- **The Museum of Weddings is a room per wedding** (Room I Elissa & Roy, deep green #24342b; Room II Valeria & Jacob, oxblood #4a1d1f; Room III The Brides, midnight blue #1e2a3a). Doorway tabs switch rooms: the lights go down, the room changes, the lights flicker back on.
+- **Carved gold frames** on every print: one Higgsfield frame (`public/media/museum/frame-gold.webp`, prompt in its `.json` sidecar), applied with CSS `border-image` slice 120 so it fits portrait and landscape alike.
+- **Walking the wall:** the print you stand before is centred and lit, its neighbours dimmed; arrows, the keyboard (left/right), a sideways trackpad swipe or shift + wheel move along the wall. Hover lifts a frame; clicking a neighbour walks to it; clicking the centred frame opens it in Lights down. A museum placard names the print. The page's normal scroll is never hijacked.
+- Each room shows 6 to 8 prints (`museumOf()` in data.js); the white Higgsfield hall image is no longer used on the page. The Weddings page is the museum plus an index of the three exhibitions.

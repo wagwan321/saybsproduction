@@ -6,6 +6,7 @@ import '@fontsource-variable/noto-serif-display/wght-italic.css'
 import '@fontsource-variable/jost'
 import './styles.css'
 import './motion.css'
+import './museum.css'
 import App from './App.jsx'
 
 document.documentElement.classList.add('js')

@@ -1,36 +1,38 @@
 import { Link } from 'react-router-dom'
-import Print from '../components/Print.jsx'
+import Museum from '../components/Museum.jsx'
+import Split from '../components/Split.jsx'
 import Rv from '../components/Reveal.jsx'
 import { IconArrow } from '../components/Icons.jsx'
 import { EXHIBITIONS, CONTACT } from '../data.js'
 import { usePageTitle } from './usePageTitle.js'
 
+// The weddings page is the museum itself, then a plain index of every exhibition.
 export default function Weddings() {
-  usePageTitle('Weddings')
+  usePageTitle('The Museum of Weddings')
   return (
     <>
       <header className="page-head split">
         <div className="wrap">
-          <h1 className="vinyl">Weddings</h1>
-          <p className="lede">Three exhibitions now hanging. Each one is a single day, told in photographs from the first light to the last dance.</p>
+          <Split as="h1" className="vinyl" text="Weddings" />
+          <Rv as="p" className="lede">The Museum of Weddings: three rooms, one wedding in each. Walk the walls, then step inside an exhibition.</Rv>
         </div>
       </header>
+
+      <Museum heading={false} />
+
       <div className="wrap">
-        {EXHIBITIONS.map((e) => {
-          const meta = [e.kind, e.place, e.date].join(' · ')
-          return (
-            <article className="exhibit-entry" key={e.slug} aria-labelledby={`ex-${e.slug}`}>
-              <Print className="a" photo={e.cover[0]} walk={e.cover} title={e.title} meta={meta} />
-              <Print className="b" size="s" photo={e.cover[1]} walk={e.cover} title={e.title} meta={meta} />
-              <Rv className="info">
-                <h2 id={`ex-${e.slug}`} className="h-display"><Link to={`/weddings/${e.slug}`}>{e.title}</Link></h2>
-                <p className="caps meta">{meta}</p>
-                <p className="lede">“{e.words}”</p>
-                <Link className="link" to={`/weddings/${e.slug}`}>Enter · {e.hang.length} photographs <IconArrow /></Link>
-              </Rv>
-            </article>
-          )
-        })}
+        <ol className="wed-index">
+          {EXHIBITIONS.map((e) => (
+            <li key={e.slug}>
+              <Link to={`/weddings/${e.slug}`}>
+                <span className="svc-n">Room {e.room.n}</span>
+                <span className="h-section">{e.title}</span>
+                <span className="label-meta">{[e.kind, e.place, e.date].join(' · ')}</span>
+                <IconArrow />
+              </Link>
+            </li>
+          ))}
+        </ol>
         <div className="after-list">
           <p className="lede">More weddings hang on our Instagram, by couple.</p>
           <a className="link" href={CONTACT.instagram} target="_blank" rel="noreferrer">@saybsproduction <IconArrow /></a>
