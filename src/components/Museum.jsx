@@ -1,167 +1,110 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { photoSrc, useLights } from './Lights.jsx'
+import { photoSrc } from './Lights.jsx'
 import { SIZES } from '../media.js'
-import { reducedMotion } from '../motion.js'
+import { useInView, reducedMotion } from '../motion.js'
 import { IconArrow } from './Icons.jsx'
 import Split from './Split.jsx'
-import { EXHIBITIONS, museumOf } from '../data.js'
 
-const ROOMS = EXHIBITIONS.map((e) => ({ e, works: museumOf(e) }))
-const metaOf = (e) => [e.kind, e.place, e.date].join(' · ')
+// The museum wall (generated once on Higgsfield, see the file's embedded prompt) has six
+// spotlight pools. Each exhibition hangs as a pair of prints under two of them.
+const POOLS = [13, 27.5, 43, 59, 74, 89]
+const EYE = 44 // eye line, % of the wall image height
 
-// The Museum of Weddings: a room per wedding, each painted its own museum colour.
-// Every photograph hangs in a carved gold frame (one Higgsfield frame, sliced in CSS)
-// under its own spotlight. Arrows, keys or a sideways trackpad swipe walk along the wall;
-// hovering lifts a frame; clicking a frame walks to it, clicking it again opens it large.
-export default function Museum({ heading = true }) {
-  const { open } = useLights()
-  const stageRef = useRef(null)
-  // Lights on once the room comes into view (kept in state so re-renders never switch them off).
-  const [lit, setLit] = useState(false)
+function HungPrint({ p, x, i, e, state, onFocus, onBlur }) {
+  const [w, h] = SIZES[p.id] || [1200, 1600]
+  const wide = w > h
+  return (
+    <Link
+      to={`/weddings/${e.slug}`}
+      className={`m-print${wide ? ' wide' : ''}${state}`}
+      style={{ left: `${x}%`, top: `${EYE}%`, '--ar': `${w} / ${h}`, transitionDelay: `${900 + i * 160}ms` }}
+      onMouseEnter={onFocus}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      aria-label={`${p.alt}. Enter the exhibition: ${e.title}`}
+    >
+      <img src={photoSrc(p.id)} alt="" loading="lazy" decoding="async" />
+    </Link>
+  )
+}
+
+export default function Museum({ shows }) {
+  const ref = useInView({ rootMargin: '0px 0px -25% 0px' })
+  const [focus, setFocus] = useState(null)
+  const [tour, setTour] = useState(0)
+  const groups = shows.map(({ e, prints }, g) => ({ e, prints, xs: [POOLS[g * 2], POOLS[g * 2 + 1]], cx: (POOLS[g * 2] + POOLS[g * 2 + 1]) / 2 }))
+  // Every hung print, in order along the wall: the camera walks up to one print at a time.
+  const prints = groups.flatMap((g, gi) => g.prints.slice(0, 2).map((p, k) => ({ p, x: g.xs[k], gi, i: gi * 2 + k })))
+
+  // Phones: the camera tours the three exhibitions on its own.
   useEffect(() => {
-    const el = stageRef.current
-    if (!el) return
-    if (reducedMotion()) { setLit(true); return }
-    const io = new IntersectionObserver(([x]) => { if (x.isIntersecting) { setLit(true); io.disconnect() } }, { rootMargin: '0px 0px -20% 0px' })
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-  const trackRef = useRef(null)
-  const [room, setRoom] = useState(0)
-  const [at, setAt] = useState(0)
-  const [door, setDoor] = useState(false)
-  const [shift, setShift] = useState(0)
-  const { e, works } = ROOMS[room]
-  const n = works.length
+    const mq = window.matchMedia('(max-width: 760px)')
+    if (!mq.matches || reducedMotion()) return
+    const t = setInterval(() => setTour((v) => (v + 1) % prints.length), 4200)
+    return () => clearInterval(t)
+  }, [prints.length])
 
-  const go = useCallback((i) => setAt(Math.max(0, Math.min(n - 1, i))), [n])
-
-  // Keep the frame you are standing in front of in the middle of the wall.
-  const centre = useCallback(() => {
-    const track = trackRef.current
-    const stage = stageRef.current
-    if (!track || !stage) return
-    const f = track.children[at]
-    if (!f) return
-    setShift(stage.clientWidth / 2 - (f.offsetLeft + f.offsetWidth / 2))
-  }, [at, stageRef])
-  useLayoutEffect(() => { centre() }, [centre, room])
-  useEffect(() => {
-    window.addEventListener('resize', centre)
-    return () => window.removeEventListener('resize', centre)
-  }, [centre])
-
-  // Through the doorway into another room: lights down, change rooms, lights up.
-  const enter = (r) => {
-    if (r === room) return
-    if (reducedMotion()) { setRoom(r); setAt(0); return }
-    setDoor(true)
-    setTimeout(() => { setRoom(r); setAt(0) }, 520)
-    setTimeout(() => setDoor(false), 640)
-  }
-
-  // A sideways trackpad swipe or shift + wheel walks the wall (the page keeps its normal scroll).
-  const wheelLock = useRef(0)
-  const onWheel = (ev) => {
-    const dx = Math.abs(ev.deltaX) > Math.abs(ev.deltaY) ? ev.deltaX : ev.shiftKey ? ev.deltaY : 0
-    if (!dx) return
-    ev.preventDefault()
-    const now = Date.now()
-    if (now - wheelLock.current < 420 || Math.abs(dx) < 8) return
-    wheelLock.current = now
-    go(at + (dx > 0 ? 1 : -1))
-  }
-  useEffect(() => {
-    const el = stageRef.current
-    if (!el) return
-    el.addEventListener('wheel', onWheel, { passive: false })
-    return () => el.removeEventListener('wheel', onWheel)
-  })
-
-  const onKey = (ev) => {
-    if (ev.key === 'ArrowRight') { ev.preventDefault(); go(at + 1) }
-    if (ev.key === 'ArrowLeft') { ev.preventDefault(); go(at - 1) }
-  }
-
-  const viewer = works.map((p) => ({ kind: 'photo', id: p.id, alt: p.alt, title: e.title, meta: metaOf(e) }))
-  const current = works[at]
+  const isPhone = typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches
+  const active = isPhone ? tour : focus
+  // Walk toward the chosen exhibition, never past the edge of the wall photograph.
+  // On phones the wall is wider than the screen (about 42% of it shows at once).
+  const z = isPhone ? 1.9 : 2.3
+  const view = isPhone ? 0.42 : 1
+  const keep = (c) => Math.min(100 - (50 * view) / z, Math.max((50 * view) / z, c))
+  const cam = active == null
+    ? { z: 1, tx: 0, ty: 0 }
+    : { z, tx: 50 - keep(prints[active].x), ty: 50 - keep(EYE + 4) }
+  const activeGroup = active == null ? null : prints[active].gi
 
   return (
     <section className="museum" aria-labelledby="museum-title">
-      {heading && (
-        <div className="wrap museum-head">
-          <Split id="museum-title" className="h-display" text="The Museum of Weddings" />
-          <p className="body">Three rooms, one wedding in each. Walk along the wall with the arrows, step closer to any frame, and click it to see it large.</p>
-        </div>
-      )}
-
-      <div className="wrap">
-        <div className="doors" role="tablist" aria-label="Rooms of the museum">
-          {ROOMS.map((r, i) => (
-            <button key={r.e.slug} role="tab" aria-selected={i === room} className={i === room ? 'on' : ''} onClick={() => enter(i)}>
-              <span className="door-n">Room {r.e.room.n}</span>
-              <span className="door-t">{r.e.title}</span>
-            </button>
+      <div className="wrap museum-head">
+        <Split id="museum-title" className="h-display" text="The Museum of Weddings" />
+        <p className="body">Three weddings, hung like exhibitions. Point at a photograph to step closer to it, then click to go inside.</p>
+      </div>
+      <div ref={ref} className="museum-stage" onMouseLeave={() => setFocus(null)}>
+        <div className="museum-frame">
+        <div
+          className="museum-cam"
+          style={{ transform: `scale(${cam.z}) translate(${cam.tx}%, ${cam.ty}%)` }}
+        >
+          <img className="museum-wall" src="/media/museum/hall.jpg" alt="An empty white museum wall under gallery spotlights, with a wooden bench" loading="lazy" decoding="async" />
+          <span className="museum-dark" aria-hidden="true" />
+          {prints.map((x) => (
+            <HungPrint
+              key={x.p.id}
+              p={x.p}
+              x={x.x}
+              i={x.i}
+              e={groups[x.gi].e}
+              state={active === x.i ? ' on' : active != null ? ' off' : ''}
+              onFocus={() => setFocus(x.i)}
+              onBlur={() => setFocus(null)}
+            />
+          ))}
+          {groups.map((g, gi) => (
+            <span key={g.e.slug} className={`m-label${activeGroup != null && activeGroup !== gi ? ' off' : ''}`} style={{ left: `${g.cx}%` }} aria-hidden="true">
+              <span className="m-title">{g.e.title}</span>
+              <span className="m-meta">{[g.e.kind, g.e.place, g.e.date].join(' · ')}</span>
+            </span>
           ))}
         </div>
+        </div>
       </div>
-
-      <div
-        ref={stageRef}
-        className={`gallery-room${lit ? ' in' : ''}${door ? ' door' : ''}`}
-        style={{ '--wall': e.room.wall }}
-        tabIndex={0}
-        onKeyDown={onKey}
-        aria-roledescription="museum room"
-        aria-label={`Room ${e.room.n}, ${e.title}. Use the left and right arrow keys to walk along the wall.`}
-      >
-        <div className="room-rail" aria-hidden="true" />
-        <div className="room-title" aria-hidden="true">
-          <span className="room-n">Room {e.room.n}</span>
-          <span className="room-name">{e.title}</span>
-          <span className="room-meta">{metaOf(e)}</span>
-        </div>
-
-        <div ref={trackRef} className="wall-track" style={{ transform: `translateX(${shift}px)` }}>
-          {works.map((p, i) => {
-            const [w, h] = SIZES[p.id] || [1200, 1600]
-            return (
-              <button
-                key={`${room}-${p.id}`}
-                className={`gilt-hang${i === at ? ' here' : ''}${w > h ? ' wide' : ''}`}
-                style={{ '--ar': `${w} / ${h}`, '--d': `${i * 90}ms` }}
-                onClick={() => (i === at ? open(viewer, i) : go(i))}
-                aria-label={i === at ? `Open larger: ${p.alt}` : `Walk to: ${p.alt}`}
-                tabIndex={-1}
-              >
-                <span className="lamp" aria-hidden="true" />
-                <span className="pool" aria-hidden="true" />
-                <span className="gilt">
-                  <img src={photoSrc(p.id)} alt={p.alt} loading="lazy" decoding="async" />
-                </span>
-              </button>
-            )
-          })}
-        </div>
-
-        <div className="room-floor" aria-hidden="true" />
-
-        <button className="walk walk-prev" onClick={() => go(at - 1)} disabled={at === 0} aria-label="Walk left"><IconArrow dir="left" /></button>
-        <button className="walk walk-next" onClick={() => go(at + 1)} disabled={at === n - 1} aria-label="Walk right"><IconArrow /></button>
-
-        <div className="placard" aria-live="polite">
-          <span className="placard-no">No. {at + 1} of {n}</span>
-          <span className="placard-t">{current.alt}</span>
-          <span className="placard-m">{e.title} · {e.place}{e.date ? ` · ${e.date}` : ''}</span>
-        </div>
-
-        <span className="door-curtain" aria-hidden="true" />
-      </div>
-
       <div className="wrap museum-foot">
-        <p className="museum-hint">Arrows, your keyboard or a sideways swipe on the trackpad walk the wall.</p>
-        <Link className="button ghost" to={`/weddings/${e.slug}`}>Enter {e.title} <IconArrow /></Link>
+        <ol className="m-index" aria-label="Exhibitions">
+          {groups.map((g, gi) => (
+            <li key={g.e.slug} className={activeGroup === gi ? 'on' : ''}>
+              <Link to={`/weddings/${g.e.slug}`} onMouseEnter={() => setFocus(gi * 2)} onMouseLeave={() => setFocus(null)}>
+                <span className="svc-n">{String(gi + 1).padStart(2, '0')}</span>
+                <span className="m-i-title">{g.e.title}</span>
+                <IconArrow />
+              </Link>
+            </li>
+          ))}
+        </ol>
+        <Link className="button ghost" to="/weddings">All weddings</Link>
       </div>
     </section>
   )

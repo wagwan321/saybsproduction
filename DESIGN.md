@@ -299,9 +299,8 @@ The user corrected three things after the first round; these override anything a
 - **What we do is mouse-driven:** hovering, focusing or clicking a service (arrow keys move between them) wipes the framed picture to that service. No pinned scroll.
 - **The Museum of Weddings** replaces Recent weddings on the homepage: a Higgsfield-generated empty gallery wall (`public/media/museum/hall.jpg`, prompt embedded in the file) with six spotlight pools; each exhibition hangs as two real prints under a pair of lights with a wall label. The lights flicker on when the section arrives, prints develop in sequence, pointing at an exhibition walks the camera closer (scale 1.9) and dims the others; phones tour the three exhibitions automatically. Clicking enters the wedding.
 
-## Revision 4, 10 November 2026: the museum becomes rooms
+## Revision 4, 10 November 2026: back to the white gallery wall
 
-- **The Museum of Weddings is a room per wedding** (Room I Elissa & Roy, deep green #24342b; Room II Valeria & Jacob, oxblood #4a1d1f; Room III The Brides, midnight blue #1e2a3a). Doorway tabs switch rooms: the lights go down, the room changes, the lights flicker back on.
-- **Carved gold frames** on every print: one Higgsfield frame (`public/media/museum/frame-gold.webp`, prompt in its `.json` sidecar), applied with CSS `border-image` slice 120 so it fits portrait and landscape alike.
-- **Walking the wall:** the print you stand before is centred and lit, its neighbours dimmed; arrows, the keyboard (left/right), a sideways trackpad swipe or shift + wheel move along the wall. Hover lifts a frame; clicking a neighbour walks to it; clicking the centred frame opens it in Lights down. A museum placard names the print. The page's normal scroll is never hijacked.
-- Each room shows 6 to 8 prints (`museumOf()` in data.js); the white Higgsfield hall image is no longer used on the page. The Weddings page is the museum plus an index of the three exhibitions.
+- The coloured rooms were tried and dropped at the user's request; the museum is the single white Higgsfield gallery wall again (`public/media/museum/hall.jpg`), six prints in three exhibition pairs with wall labels.
+- **Fine gold frames:** each print wears the Higgsfield carved gold frame (`frame-gold.webp`) drawn thin (CSS `border-image` slice 120, border clamp(3px, 0.42vw, 7px)), no white mat.
+- **Pointing at one print** walks the camera up to that single print (scale 2.3, phones 1.9) and dims the other prints and labels; clicking a print enters that wedding. Phones tour the six prints automatically.
